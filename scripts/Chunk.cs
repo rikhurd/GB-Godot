@@ -40,24 +40,7 @@ public partial class Chunk : Node3D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		if (ChunkMeshInstance == null || !IsInstanceValid(ChunkMeshInstance))
-		{
-			// Try to get it first
-			ChunkMeshInstance = GetNodeOrNull<MeshInstance3D>("ChunkMeshInstance");
-
-			// If it doesn't exist, create and add it
-			if (ChunkMeshInstance == null)
-			{
-				ChunkMeshInstance = new MeshInstance3D();
-				ChunkMeshInstance.Name = "ChunkMeshInstance";
-				AddChild(ChunkMeshInstance);
-
-				if (Engine.IsEditorHint() && IsInsideTree())
-				{
-					ChunkMeshInstance.Owner = GetTree().EditedSceneRoot;
-				}
-			}
-		}
+		ChunkMeshInstance = GetNode<MeshInstance3D>("Area3D/ChunkMeshInstance");
 		BuildMesh();
 	}
 
@@ -68,14 +51,10 @@ public partial class Chunk : Node3D
 
 	private void ScheduleMeshBuild()
 	{
-		if (IsInsideTree())
-			CallDeferred(nameof(BuildMesh));
+		CallDeferred(nameof(BuildMesh));
 	}
 	private void BuildMesh()
 	{
-		if (ChunkMeshInstance == null)
-        return; // safety check
-
 		SurfaceTool st = new SurfaceTool();
 		st.Begin(Mesh.PrimitiveType.Triangles);
 

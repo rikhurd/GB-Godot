@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=4 uid="uid://c1sqvjmy2ue5n"]
+[gd_scene load_steps=6 format=3 uid="uid://c1sqvjmy2ue5n"]
 
 [ext_resource type="PackedScene" uid="uid://qs0xsjjb5j16" path="res://scenes/Player.tscn" id="1_ibkli"]
 [ext_resource type="PackedScene" uid="uid://cre5n3157ylps" path="res://scenes/Chunk.tscn" id="2_qbsmt"]
@@ -15,17 +15,6 @@ background_mode = 2
 sky = SubResource("Sky_qbsmt")
 tonemap_mode = 2
 glow_enabled = true
-
-[sub_resource type="ArrayMesh" id="ArrayMesh_qbsmt"]
-_surfaces = [{
-"aabb": AABB(0, 0, 0, 3, 1e-05, 3),
-"attribute_data": PackedByteArray("AAAAAAAAAAAAAIA/AAAAAAAAgD8AAIA/AACAPwAAgD8AAAAAAACAPwAAAAAAAAAA"),
-"format": 34359738391,
-"primitive": 3,
-"uv_scale": Vector4(0, 0, 0, 0),
-"vertex_count": 6,
-"vertex_data": PackedByteArray("AAAAAAAAAAAAAAAAAABAQAAAAAAAAAAAAABAQAAAAAAAAEBAAABAQAAAAAAAAEBAAAAAAAAAAAAAAEBAAAAAAAAAAAAAAAAA/3///////7//f///////v/9///////+//3///////7//f///////v/9///////+/")
-}]
 
 [node name="Game" type="Node3D"]
 
@@ -59,7 +48,5 @@ size = Vector3(32, 0.001, 23.75)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 1.5, 7)
 
 [node name="Chunk" parent="." instance=ExtResource("2_qbsmt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.75, 8.5, -28.25)
-
-[node name="ChunkMeshInstance" type="MeshInstance3D" parent="Chunk"]
-mesh = SubResource("ArrayMesh_qbsmt")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
+ChunkSize = Vector2i(1, 1)
