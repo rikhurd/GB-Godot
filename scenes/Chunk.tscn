@@ -3,13 +3,11 @@
 [ext_resource type="Script" uid="uid://bcfomdebj138b" path="res://scripts/Chunk.cs" id="1_3txbk"]
 [ext_resource type="Material" uid="uid://c3t28jbckblwd" path="res://assets/materials/GridChunkMaterial.tres" id="2_qt7hk"]
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_3txbk"]
-resource_local_to_scene = true
+[sub_resource type="ArrayMesh" id="ArrayMesh_qt7hk"]
 _surfaces = [{
 "aabb": AABB(0, 0, 0, 3, 1e-05, 3),
 "attribute_data": PackedByteArray("AAAAAAAAAAAAAIA/AAAAAAAAgD8AAIA/AACAPwAAgD8AAAAAAACAPwAAAAAAAAAA"),
 "format": 34359738391,
-"name": "MainChunkMaterial",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 6,
@@ -23,5 +21,5 @@ script = ExtResource("1_3txbk")
 
 [node name="ChunkMeshInstance" type="MeshInstance3D" parent="Area3D"]
 material_override = ExtResource("2_qt7hk")
-mesh = SubResource("ArrayMesh_3txbk")
+mesh = SubResource("ArrayMesh_qt7hk")
 skeleton = NodePath("../..")

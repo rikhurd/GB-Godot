@@ -1,0 +1,577 @@
+[gd_scene load_steps=116 format=4 uid="uid://bnt3jsp1m56bm"]
+
+[ext_resource type="PackedScene" uid="uid://c5yg5qfbnv6bp" path="res://assets/Kenney/barrels.glb" id="1_dcj4d"]
+[ext_resource type="PackedScene" uid="uid://qbhn5vdi7qx4" path="res://assets/Kenney/battlement-corner-inner.glb" id="2_rgfef"]
+[ext_resource type="PackedScene" uid="uid://5sfhd0n2hx7f" path="res://assets/Kenney/battlement-corner-outer.glb" id="3_qtqu5"]
+[ext_resource type="PackedScene" uid="uid://dm8kte0srpnxd" path="res://assets/Kenney/battlement-half.glb" id="4_yii30"]
+[ext_resource type="PackedScene" uid="uid://dr7617puxo5om" path="res://assets/Kenney/battlement.glb" id="5_8or5q"]
+[ext_resource type="PackedScene" uid="uid://c6pib2ajrh34x" path="res://assets/Kenney/bricks.glb" id="6_1ynqa"]
+[ext_resource type="PackedScene" uid="uid://b1es6uwwpqdmg" path="res://assets/Kenney/column-damaged.glb" id="7_sa5rb"]
+[ext_resource type="PackedScene" uid="uid://c6o01po65kodj" path="res://assets/Kenney/column-paint-damaged.glb" id="8_57k58"]
+[ext_resource type="PackedScene" uid="uid://b2cnaq8vb37y1" path="res://assets/Kenney/column-paint.glb" id="9_tri03"]
+[ext_resource type="PackedScene" uid="uid://cg77minwecfxl" path="res://assets/Kenney/column-wood.glb" id="10_4o7xo"]
+[ext_resource type="PackedScene" uid="uid://cmacoqe1cvox7" path="res://assets/Kenney/column.glb" id="11_nyc6j"]
+[ext_resource type="PackedScene" uid="uid://d7d18815qnjw" path="res://assets/Kenney/detail-barrel.glb" id="12_bq4na"]
+[ext_resource type="PackedScene" uid="uid://cpwlp44wtol0j" path="res://assets/Kenney/detail-crate-ropes.glb" id="13_12edy"]
+[ext_resource type="PackedScene" uid="uid://digtyjdmodb1s" path="res://assets/Kenney/detail-crate-small.glb" id="14_kqra2"]
+[ext_resource type="PackedScene" uid="uid://dy11ih3hvmurs" path="res://assets/Kenney/detail-crate.glb" id="15_gkevr"]
+[ext_resource type="PackedScene" uid="uid://bntvnetq2efu5" path="res://assets/Kenney/dock-corner.glb" id="16_0xfkj"]
+[ext_resource type="PackedScene" uid="uid://cd4tgue7ma5v8" path="res://assets/Kenney/dock-side.glb" id="17_ow758"]
+[ext_resource type="PackedScene" uid="uid://djmbbwp6bym1c" path="res://assets/Kenney/fence-top.glb" id="18_6b3bw"]
+[ext_resource type="PackedScene" uid="uid://vvvifcuj5dyj" path="res://assets/Kenney/fence-wood.glb" id="19_s6tl7"]
+[ext_resource type="PackedScene" uid="uid://budno16nqt3ba" path="res://assets/Kenney/fence.glb" id="20_v0bjb"]
+[ext_resource type="PackedScene" uid="uid://dr6jenrh8vyg1" path="res://assets/Kenney/floor-flat.glb" id="21_u7nd8"]
+[ext_resource type="PackedScene" uid="uid://co8sx84ndbbpg" path="res://assets/Kenney/floor-stairs-corner-inner.glb" id="22_vnc4m"]
+[ext_resource type="PackedScene" uid="uid://dl75d8gy4llwk" path="res://assets/Kenney/floor-stairs-corner-outer.glb" id="23_olw48"]
+[ext_resource type="PackedScene" uid="uid://dgcik1irc8u0f" path="res://assets/Kenney/floor-stairs.glb" id="24_a0f0k"]
+[ext_resource type="PackedScene" uid="uid://dqeg8hjvhj7cn" path="res://assets/Kenney/floor-steps-corner-inner.glb" id="25_rcr7x"]
+[ext_resource type="PackedScene" uid="uid://b87bw8xipip0e" path="res://assets/Kenney/floor-steps-corner-outer.glb" id="26_se6up"]
+[ext_resource type="PackedScene" uid="uid://bdqly70a8r0fk" path="res://assets/Kenney/floor-steps.glb" id="27_q1f2c"]
+[ext_resource type="Texture2D" uid="uid://djih1yqiblwt2" path="res://assets/Kenney/Textures/cobblestoneAlternative.png" id="28_dcj4d"]
+[ext_resource type="PackedScene" uid="uid://b36p67lijlxcx" path="res://assets/Kenney/ladder.glb" id="29_65dee"]
+[ext_resource type="Texture2D" uid="uid://21mdc4uvyjjo" path="res://assets/Kenney/Textures/cobblestone.png" id="29_rgfef"]
+[ext_resource type="PackedScene" uid="uid://c5gtifi33hfoq" path="res://assets/Kenney/overhang-fence.glb" id="30_mb6vk"]
+[ext_resource type="PackedScene" uid="uid://bqg0ho77kas68" path="res://assets/Kenney/overhang-round-railing.glb" id="31_ro3p8"]
+[ext_resource type="PackedScene" uid="uid://bg42doib08uxh" path="res://assets/Kenney/overhang-round.glb" id="32_1ar8g"]
+[ext_resource type="PackedScene" uid="uid://dy2jb1r0b0mc0" path="res://assets/Kenney/overhang.glb" id="33_pukqw"]
+[ext_resource type="PackedScene" uid="uid://b8jtrlxjurxjm" path="res://assets/Kenney/pulley-crate.glb" id="34_72oco"]
+[ext_resource type="PackedScene" uid="uid://bpwpg3ylgu4b8" path="res://assets/Kenney/pulley.glb" id="35_hvkgp"]
+[ext_resource type="PackedScene" uid="uid://cmskufx531iiu" path="res://assets/Kenney/roof-corner.glb" id="36_xq48q"]
+[ext_resource type="PackedScene" uid="uid://dvogmxxtsbbif" path="res://assets/Kenney/roof-edge.glb" id="37_ycmfy"]
+[ext_resource type="PackedScene" uid="uid://bvrxq2ulwx5vi" path="res://assets/Kenney/roof-high-side-corner-inner.glb" id="38_t47xq"]
+[ext_resource type="PackedScene" uid="uid://cxj2u0kscegao" path="res://assets/Kenney/roof-high-side-corner.glb" id="39_s54p6"]
+[ext_resource type="PackedScene" uid="uid://ck8t3pyvbsasl" path="res://assets/Kenney/roof-high-side.glb" id="40_tf74g"]
+[ext_resource type="PackedScene" uid="uid://eg4828rq6m63" path="res://assets/Kenney/roof-side-corner-inner.glb" id="41_lvfkg"]
+[ext_resource type="PackedScene" uid="uid://cqmqlqaewym0n" path="res://assets/Kenney/roof-side-corner.glb" id="42_1vo3c"]
+[ext_resource type="PackedScene" uid="uid://chjuw0ycle05h" path="res://assets/Kenney/roof-side.glb" id="43_ttem4"]
+[ext_resource type="PackedScene" uid="uid://duh6q23bjf1kk" path="res://assets/Kenney/roof.glb" id="44_1cabg"]
+[ext_resource type="PackedScene" uid="uid://dmk3vot87exke" path="res://assets/Kenney/stairs-corner.glb" id="45_y22oc"]
+[ext_resource type="PackedScene" uid="uid://cbewd1i2kkw8q" path="res://assets/Kenney/stairs-stone.glb" id="46_edkdj"]
+[ext_resource type="PackedScene" uid="uid://mxdx1vkswfbt" path="res://assets/Kenney/stairs-wood.glb" id="47_7426h"]
+[ext_resource type="PackedScene" uid="uid://d071d16w4s7tc" path="res://assets/Kenney/structure-cross.glb" id="48_m06uo"]
+[ext_resource type="PackedScene" uid="uid://csd74csetldh2" path="res://assets/Kenney/structure-pole.glb" id="49_wv2d7"]
+[ext_resource type="PackedScene" uid="uid://dwj023cj34inw" path="res://assets/Kenney/structure-poles.glb" id="50_8pl43"]
+[ext_resource type="PackedScene" uid="uid://buud4oxq8nrb" path="res://assets/Kenney/structure-wall-cross.glb" id="51_5lcfv"]
+[ext_resource type="PackedScene" uid="uid://dfvut32n5ivs3" path="res://assets/Kenney/structure-wall.glb" id="52_41ctr"]
+[ext_resource type="PackedScene" uid="uid://c4wevtw11cj0t" path="res://assets/Kenney/structure.glb" id="53_aq1g8"]
+[ext_resource type="PackedScene" uid="uid://cnhnxpdajgfcj" path="res://assets/Kenney/tower-base.glb" id="54_j0yei"]
+[ext_resource type="PackedScene" uid="uid://6n72a5fxg0s7" path="res://assets/Kenney/tower-edge.glb" id="55_ec4ch"]
+[ext_resource type="PackedScene" uid="uid://dc6h46ml1wnpb" path="res://assets/Kenney/tower-paint-base.glb" id="56_ap7v7"]
+[ext_resource type="PackedScene" uid="uid://djwqxcomu7y2m" path="res://assets/Kenney/tower-paint.glb" id="57_dhum6"]
+[ext_resource type="PackedScene" uid="uid://c3ixr3tyq4a6q" path="res://assets/Kenney/tower-top.glb" id="58_spa64"]
+[ext_resource type="PackedScene" uid="uid://ojft4ritlatt" path="res://assets/Kenney/tower.glb" id="59_l4rhd"]
+[ext_resource type="PackedScene" uid="uid://dgewi3f0b7ul8" path="res://assets/Kenney/tree-large.glb" id="60_frhwu"]
+[ext_resource type="PackedScene" uid="uid://brbe5xmxcjwir" path="res://assets/Kenney/tree-shrub.glb" id="61_kns08"]
+[ext_resource type="PackedScene" uid="uid://d4ere2elnjspk" path="res://assets/Kenney/wall-detail.glb" id="62_ytl4j"]
+[ext_resource type="PackedScene" uid="uid://nqnwg3ckvnqk" path="res://assets/Kenney/wall-door.glb" id="63_yml5o"]
+[ext_resource type="PackedScene" uid="uid://bnolt0wsknubm" path="res://assets/Kenney/wall-flat-gate.glb" id="64_5cbar"]
+[ext_resource type="PackedScene" uid="uid://b2jdx5cm3m4uf" path="res://assets/Kenney/wall-fortified-door.glb" id="65_8xjn0"]
+[ext_resource type="PackedScene" uid="uid://v7tfqdne4hj8" path="res://assets/Kenney/wall-fortified-gate-half.glb" id="66_m6r4a"]
+[ext_resource type="PackedScene" uid="uid://t2jnrof6cxjr" path="res://assets/Kenney/wall-fortified-gate.glb" id="67_gka5v"]
+[ext_resource type="PackedScene" uid="uid://deq5r344prxkk" path="res://assets/Kenney/wall-fortified-half.glb" id="68_0656g"]
+[ext_resource type="PackedScene" uid="uid://c55clh4tj0qj6" path="res://assets/Kenney/wall-fortified-paint-door.glb" id="69_4hlki"]
+[ext_resource type="PackedScene" uid="uid://d4jtu3sf0vx3u" path="res://assets/Kenney/wall-fortified-paint-gate.glb" id="70_khcbd"]
+[ext_resource type="PackedScene" uid="uid://c8c78y6bwh754" path="res://assets/Kenney/wall-fortified-paint-half.glb" id="71_h0tec"]
+[ext_resource type="PackedScene" uid="uid://ba5ekmv0if2xv" path="res://assets/Kenney/wall-fortified-paint-window.glb" id="72_d52se"]
+[ext_resource type="PackedScene" uid="uid://bgooy3dr2mvef" path="res://assets/Kenney/wall-fortified-paint.glb" id="73_wcbc2"]
+[ext_resource type="PackedScene" uid="uid://dttiv6sqd75f6" path="res://assets/Kenney/wall-fortified-window.glb" id="74_qr654"]
+[ext_resource type="PackedScene" uid="uid://cofja66x21kjg" path="res://assets/Kenney/wall-fortified.glb" id="75_8sc1w"]
+[ext_resource type="PackedScene" uid="uid://tr8isxm0jk6a" path="res://assets/Kenney/wall-gate-half.glb" id="76_ib1e4"]
+[ext_resource type="PackedScene" uid="uid://b8jxvdce0q0w4" path="res://assets/Kenney/wall-gate.glb" id="77_n56oj"]
+[ext_resource type="PackedScene" uid="uid://c1k4lj6me80k3" path="res://assets/Kenney/wall-half.glb" id="78_wfker"]
+[ext_resource type="PackedScene" uid="uid://x74wxxqpk0yl" path="res://assets/Kenney/wall-low.glb" id="79_4g60i"]
+[ext_resource type="PackedScene" uid="uid://8m7w7511tdmp" path="res://assets/Kenney/wall-paint-detail.glb" id="80_45i5l"]
+[ext_resource type="PackedScene" uid="uid://b0tktrx627eyd" path="res://assets/Kenney/wall-paint-door.glb" id="81_6fp5w"]
+[ext_resource type="PackedScene" uid="uid://d1gpmehygkuab" path="res://assets/Kenney/wall-paint-flat.glb" id="82_bia5x"]
+[ext_resource type="PackedScene" uid="uid://rlery22reh6w" path="res://assets/Kenney/wall-paint-gate.glb" id="83_1iyd7"]
+[ext_resource type="PackedScene" uid="uid://wt12x7de72ug" path="res://assets/Kenney/wall-paint-half.glb" id="84_6qsa3"]
+[ext_resource type="PackedScene" uid="uid://dsa36k0iw8p4p" path="res://assets/Kenney/wall-paint-window.glb" id="85_7t6qy"]
+[ext_resource type="PackedScene" uid="uid://dox633dajkpkg" path="res://assets/Kenney/wall-paint.glb" id="86_r0fll"]
+[ext_resource type="PackedScene" uid="uid://b2du0sa61rre4" path="res://assets/Kenney/wall-pane-door.glb" id="87_mrg65"]
+[ext_resource type="PackedScene" uid="uid://doikw1hpks408" path="res://assets/Kenney/wall-pane-paint-door.glb" id="88_5gjls"]
+[ext_resource type="PackedScene" uid="uid://c84jfhy8b26as" path="res://assets/Kenney/wall-pane-paint-window.glb" id="89_14upd"]
+[ext_resource type="PackedScene" uid="uid://vuap7d72q8vv" path="res://assets/Kenney/wall-pane-paint.glb" id="90_gx07x"]
+[ext_resource type="PackedScene" uid="uid://dfjb8b5nihthu" path="res://assets/Kenney/wall-pane-painted-wood-door.glb" id="91_kmtdk"]
+[ext_resource type="PackedScene" uid="uid://cr56v4bq1fo6u" path="res://assets/Kenney/wall-pane-painted-wood-window.glb" id="92_qo8yl"]
+[ext_resource type="PackedScene" uid="uid://c42erdkwsikwk" path="res://assets/Kenney/wall-pane-painted-wood.glb" id="93_aksbt"]
+[ext_resource type="PackedScene" uid="uid://cm1tap36b5fso" path="res://assets/Kenney/wall-pane-window.glb" id="94_wwo26"]
+[ext_resource type="PackedScene" uid="uid://cjtjdj50eaie0" path="res://assets/Kenney/wall-pane-wood-door.glb" id="95_ct6bp"]
+[ext_resource type="PackedScene" uid="uid://ctbhia7ytrc8m" path="res://assets/Kenney/wall-pane-wood-window.glb" id="96_c4hn4"]
+[ext_resource type="PackedScene" uid="uid://bap3c17igimmo" path="res://assets/Kenney/wall-pane-wood.glb" id="97_6ex3n"]
+[ext_resource type="PackedScene" uid="uid://dkf7qu8yqd5p8" path="res://assets/Kenney/wall-pane.glb" id="98_x03dk"]
+[ext_resource type="PackedScene" uid="uid://b4kujwid6kae8" path="res://assets/Kenney/wall-window.glb" id="99_l4emk"]
+[ext_resource type="PackedScene" uid="uid://diri4nx2et4h0" path="res://assets/Kenney/water.glb" id="101_gx876"]
+[ext_resource type="PackedScene" uid="uid://rr7altymyvbd" path="res://assets/Kenney/wood-floor-half.glb" id="102_ivpt5"]
+[ext_resource type="PackedScene" uid="uid://s0rjwb74p7wt" path="res://assets/Kenney/wood-floor-quarter.glb" id="103_orbu6"]
+[ext_resource type="PackedScene" uid="uid://bgf0gktdiudbm" path="res://assets/Kenney/wood-floor-railing.glb" id="104_u5h1f"]
+[ext_resource type="PackedScene" uid="uid://crejnknlxdjr5" path="res://assets/Kenney/wood-floor.glb" id="105_5oh51"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2mdxs"]
+resource_name = "bricks"
+shading_mode = 0
+albedo_texture = ExtResource("28_dcj4d")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kpsic"]
+resource_name = "stones"
+shading_mode = 0
+albedo_texture = ExtResource("29_rgfef")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_516j4"]
+_surfaces = [{
+"aabb": AABB(-0.5, 0.05, -0.5, 1, 1e-05, 1),
+"format": 34896613377,
+"index_count": 12,
+"index_data": PackedByteArray("AAABAAIAAQAAAAIAAwACAAAAAgADAAAA"),
+"name": "bricks",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray("AAAAAAAAAAD//wAAAAAAAP//AAD//wAAAAAAAP//AAA=")
+}, {
+"aabb": AABB(-0.5, 0, -0.5, 1, 0.05, 1),
+"format": 34896613377,
+"index_count": 48,
+"index_data": PackedByteArray("AAABAAIAAQAAAAIAAQADAAAAAwABAAAAAgAEAAAABAACAAAAAAAFAAMABQAAAAMABAAGAAIABgAEAAIABQADAAYAAwAFAAYAAgAHAAYABwACAAYABgAHAAMABwAGAAMA"),
+"name": "stones",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("////////AAD//wAA//8AAAAAAAD//wAA//8AAAAAAAAAAP////8AAP////8AAAAAAAD//wAAAAAAAAAAAAAAAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_wdja1"]
+resource_name = "floor_floor"
+_surfaces = [{
+"aabb": AABB(-0.5, 0.05, -0.5, 1, 1e-05, 1),
+"attribute_data": PackedByteArray("/3///wAA//8AAP+//3//vwAA////f///AAD/v/9//78="),
+"format": 34896613399,
+"index_count": 12,
+"index_data": PackedByteArray("AAABAAIAAgADAAAABAAFAAYABwAGAAUA"),
+"material": SubResource("StandardMaterial3D_2mdxs"),
+"name": "bricks",
+"primitive": 3,
+"uv_scale": Vector4(2, 4, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("AAAAAAAA/////wAAAAD/////AAD/////AAAAAP///////wAAAAAAAAAAAAAAAAAA//8AAP//AAAAAAAA//8AAP9//7//f/+//3//v/9//7//f/8//3//P/9//z//f/8/")
+}, {
+"aabb": AABB(-0.5, 0, -0.5, 1, 0.05, 1),
+"attribute_data": PackedByteArray("//+Y+f////84jv//OI6Y+f///////5j5OI7//ziOmPk4jv//cRz//3EcmPk4jpj5cRz//ziO//9xHJj5OI6Y+QAAmPnGcZj5xnH//wAA///GcZj5AACY+cZx//8AAP///3//3/9/ZeY4DmXmOA7/3/9/Zeb/f//fOA5l5jgO/98="),
+"format": 34896613399,
+"index_count": 48,
+"index_data": PackedByteArray("AAABAAIAAgADAAAABAAFAAYABwAGAAUACAAJAAoACgALAAgADAANAA4ADwAOAA0AEAARABIAEgATABAAFAAVABYAFwAWABUAGAAZABoAGgAbABgAHAAdAB4AHwAeAB0A"),
+"material": SubResource("StandardMaterial3D_kpsic"),
+"name": "stones",
+"primitive": 3,
+"uv_scale": Vector4(2.25, 2, 0, 0),
+"vertex_count": 32,
+"vertex_data": PackedByteArray("////////AID//wAA//8AgAAAAAD//wCAAAD/////AID//wAA//8AAP///////wAAAAAAAP//AAAAAP////8AAAAAAAD///+/AAAAAAAA/78AAP//AAD/vwAA//////+/AAAAAAAAAAAAAAAA//8AAAAA//8AAAAAAAD/////AAD/////////v/////8AAP+///8AAAAA/7///wAA////v/////8AAAAA////////AAD//wAAAAAAAP//AAD//wAAAAD//wAA//8AAAAAAAD/////AAAAAP///////wAA//8AAAAAAAAAAAAA//8AAAAA//8AAAAAAAD/////AAAAAP9/////f////3////9///////9/////f////3////9//3////9/////f////3////+//3//v/9//7//f/+//3//fwAA/38AAP9/AAD/fwAA/z//f/8//3//P/9//z//f/9/////f////3////9/////f/9//3//f/9//3//f/9/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_516j4")
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_qtqu5"]
+points = PackedVector3Array(0.50793654, 0.055549346, 0.50793654, -0.50793654, -0.007936507, -0.50793654, -0.50793654, 0.055549346, -0.50793654, 0.50793654, -0.007936507, -0.50793654, -0.50793654, -0.007936507, 0.50793654, -0.50793654, 0.055549346, 0.50793654, 0.50793654, 0.055549346, -0.50793654, 0.50793654, -0.007936507, 0.50793654)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7uv7t"]
+resource_name = "stones"
+shading_mode = 0
+albedo_texture = ExtResource("29_rgfef")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3r44l"]
+resource_name = "bricks"
+shading_mode = 0
+albedo_texture = ExtResource("28_dcj4d")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_viglu"]
+_surfaces = [{
+"aabb": AABB(-0.5, 0, -0.5, 1, 1, 1),
+"format": 34896613377,
+"index_count": 48,
+"index_data": PackedByteArray("AAABAAIAAQAAAAIAAQADAAAAAwABAAAAAgAEAAAABAACAAAAAAAFAAMABQAAAAMABAAGAAIABgAEAAIABQADAAYAAwAFAAYAAgAHAAYABwACAAYABgAHAAMABwAGAAMA"),
+"name": "stones",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("////////AAD//wAA//8AAAAAAAD//wAA//8AAAAAAAAAAP////8AAP////8AAAAAAAD//wAAAAAAAAAAAAAAAA==")
+}, {
+"aabb": AABB(-0.5, 0, -0.5, 1, 1, 1),
+"format": 34896613377,
+"index_count": 24,
+"index_data": PackedByteArray("BAAFAAYABQAEAAYABwAGAAQABgAHAAQAAAABAAIAAQAAAAIAAwACAAAAAgADAAAA"),
+"lods": [0.4082483, PackedByteArray("AAABAAIAAQAAAAIAAwACAAAAAgADAAAA")],
+"name": "bricks",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("AAAAAP//AAD//wAA//8AAP//AAAAAAAAAAAAAAAAAAAAAP//AAAAAP////8AAAAA////////AAAAAP////8AAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_pmfyr"]
+resource_name = "wall_wall"
+_surfaces = [{
+"aabb": AABB(-0.5, 0, -0.5, 1, 1, 1),
+"attribute_data": PackedByteArray("qir/f6oq//8AAP//AAD/f6oq//+qKv9/AAD//wAA/3+qKv9/VFX/f1RV//+qKv//VFX/f6oq/39UVf//qir//6qq////f////3//f6qq/3//f///qqr///9//3+qqv9//3//f/9///9UVf//VFX/f/9/////f/9/VFX//1RV/38="),
+"format": 34896613399,
+"index_count": 48,
+"index_data": PackedByteArray("AAABAAIAAgADAAAABAAFAAYABwAGAAUACAAJAAoACgALAAgADAANAA4ADwAOAA0AEAARABIAEgATABAAFAAVABYAFwAWABUAGAAZABoAGgAbABgAHAAdAB4AHwAeAB0A"),
+"material": SubResource("StandardMaterial3D_7uv7t"),
+"name": "stones",
+"primitive": 3,
+"uv_scale": Vector4(6, 2, 0, 0),
+"vertex_count": 32,
+"vertex_data": PackedByteArray("////////AID//wAA//8AgAAAAAD//wCAAAD/////AID//wAA//8AAP///////wAAAAAAAP//AAAAAP////8AAP////////+//////wAA/7///wAAAAD/v///AAD///+//////wAAAAD///////8AAP//AAAAAAAA//8AAP//AAAAAAAA////vwAAAAAAAP+/AAD//wAA/78AAP//////vwAAAAAAAAAAAAAAAP//AAAAAP//AAAAAAAA/////wAAAAD//wAA//8AAAAAAAD/////AAAAAP///////wAA//8AAAAAAAAAAAAA//8AAAAA//8AAAAAAAD/////AAAAAP9/////f////3////9///////9/////f////3////9//38AAP9/AAD/fwAA/38AAP8//3//P/9//z//f/8//3//f////3////9/////f////7//f/+//3//v/9//7//f/9/////f////3////9/////f/9//3//f/9//3//f/9/")
+}, {
+"aabb": AABB(-0.5, 0, -0.5, 1, 1, 1),
+"attribute_data": PackedByteArray("AAD/v/9//7//f///AAD///9//78AAP+//3///wAA/////////3////9//7////+//3//////////f/+/////vw=="),
+"format": 34896613399,
+"index_count": 24,
+"index_data": PackedByteArray("CAAJAAoACgALAAgADAANAA4ADwAOAA0AAAABAAIAAgADAAAABAAFAAYABwAGAAUA"),
+"lods": [0.4082483, PackedByteArray("AAABAAIAAgADAAAABAAFAAYABwAGAAUA")],
+"material": SubResource("StandardMaterial3D_3r44l"),
+"name": "bricks",
+"primitive": 3,
+"uv_scale": Vector4(2, 4, 0, 0),
+"vertex_count": 16,
+"vertex_data": PackedByteArray("AAAAAP///7///wAA////v///AAAAAP+/AAAAAAAA/7///wAA////PwAAAAD///8///8AAAAA/z8AAAAAAAD/PwAA//8AAP///////wAA/////////////wAA/////////////wAAAAAAAP//AAAAAP///////wAAAAD/////AAAAAP9/AAD/fwAA/38AAP9/////f////3////9/////f/9//7//f/+//3//v/9//7//f/8//3//P/9//z//f/8/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_viglu")
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_yii30"]
+points = PackedVector3Array(0.5, 0.9998042, 0.5, -0.5, 0.00019579286, -0.5, -0.5, 0.00019579286, 0.5, -0.5, 0.9998042, -0.5, 0.5, 0.00019579286, -0.5, -0.5, 0.9998042, 0.5, 0.5, 0.00019579286, 0.5, 0.5, 0.9998042, -0.5)
+
+[node name="Tiles3D" type="Node3D"]
+
+[node name="barrels2" parent="." instance=ExtResource("1_dcj4d")]
+visible = false
+
+[node name="battlement-corner-inner2" parent="." instance=ExtResource("2_rgfef")]
+visible = false
+
+[node name="battlement-corner-outer2" parent="." instance=ExtResource("3_qtqu5")]
+visible = false
+
+[node name="battlement-half2" parent="." instance=ExtResource("4_yii30")]
+visible = false
+
+[node name="battlement2" parent="." instance=ExtResource("5_8or5q")]
+visible = false
+
+[node name="bricks2" parent="." instance=ExtResource("6_1ynqa")]
+visible = false
+
+[node name="column-damaged2" parent="." instance=ExtResource("7_sa5rb")]
+visible = false
+
+[node name="column-paint-damaged2" parent="." instance=ExtResource("8_57k58")]
+visible = false
+
+[node name="column-paint2" parent="." instance=ExtResource("9_tri03")]
+visible = false
+
+[node name="column-wood2" parent="." instance=ExtResource("10_4o7xo")]
+visible = false
+
+[node name="column2" parent="." instance=ExtResource("11_nyc6j")]
+visible = false
+
+[node name="detail-barrel2" parent="." instance=ExtResource("12_bq4na")]
+visible = false
+
+[node name="detail-crate-ropes2" parent="." instance=ExtResource("13_12edy")]
+visible = false
+
+[node name="detail-crate-small2" parent="." instance=ExtResource("14_kqra2")]
+visible = false
+
+[node name="detail-crate2" parent="." instance=ExtResource("15_gkevr")]
+visible = false
+
+[node name="dock-corner2" parent="." instance=ExtResource("16_0xfkj")]
+visible = false
+
+[node name="dock-side2" parent="." instance=ExtResource("17_ow758")]
+visible = false
+
+[node name="fence-top2" parent="." instance=ExtResource("18_6b3bw")]
+visible = false
+
+[node name="fence-wood2" parent="." instance=ExtResource("19_s6tl7")]
+visible = false
+
+[node name="fence2" parent="." instance=ExtResource("20_v0bjb")]
+visible = false
+
+[node name="floor-flat2" parent="." instance=ExtResource("21_u7nd8")]
+visible = false
+
+[node name="floor-stairs-corner-inner2" parent="." instance=ExtResource("22_vnc4m")]
+visible = false
+
+[node name="floor-stairs-corner-outer2" parent="." instance=ExtResource("23_olw48")]
+visible = false
+
+[node name="floor-stairs2" parent="." instance=ExtResource("24_a0f0k")]
+visible = false
+
+[node name="floor-steps-corner-inner2" parent="." instance=ExtResource("25_rcr7x")]
+visible = false
+
+[node name="floor-steps-corner-outer2" parent="." instance=ExtResource("26_se6up")]
+visible = false
+
+[node name="floor-steps2" parent="." instance=ExtResource("27_q1f2c")]
+visible = false
+
+[node name="floor2" type="Node3D" parent="."]
+
+[node name="floor" type="MeshInstance3D" parent="floor2"]
+mesh = SubResource("ArrayMesh_wdja1")
+skeleton = NodePath("")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="floor2/floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="floor2/floor/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_qtqu5")
+
+[node name="ladder2" parent="." instance=ExtResource("29_65dee")]
+visible = false
+
+[node name="overhang-fence2" parent="." instance=ExtResource("30_mb6vk")]
+visible = false
+
+[node name="overhang-round-railing2" parent="." instance=ExtResource("31_ro3p8")]
+visible = false
+
+[node name="overhang-round2" parent="." instance=ExtResource("32_1ar8g")]
+visible = false
+
+[node name="overhang2" parent="." instance=ExtResource("33_pukqw")]
+visible = false
+
+[node name="pulley-crate2" parent="." instance=ExtResource("34_72oco")]
+visible = false
+
+[node name="pulley2" parent="." instance=ExtResource("35_hvkgp")]
+visible = false
+
+[node name="roof-corner2" parent="." instance=ExtResource("36_xq48q")]
+visible = false
+
+[node name="roof-edge2" parent="." instance=ExtResource("37_ycmfy")]
+visible = false
+
+[node name="roof-high-side-corner-inner2" parent="." instance=ExtResource("38_t47xq")]
+visible = false
+
+[node name="roof-high-side-corner2" parent="." instance=ExtResource("39_s54p6")]
+visible = false
+
+[node name="roof-high-side2" parent="." instance=ExtResource("40_tf74g")]
+visible = false
+
+[node name="roof-side-corner-inner2" parent="." instance=ExtResource("41_lvfkg")]
+visible = false
+
+[node name="roof-side-corner2" parent="." instance=ExtResource("42_1vo3c")]
+visible = false
+
+[node name="roof-side2" parent="." instance=ExtResource("43_ttem4")]
+visible = false
+
+[node name="roof2" parent="." instance=ExtResource("44_1cabg")]
+visible = false
+
+[node name="stairs-corner2" parent="." instance=ExtResource("45_y22oc")]
+visible = false
+
+[node name="stairs-stone2" parent="." instance=ExtResource("46_edkdj")]
+visible = false
+
+[node name="stairs-wood2" parent="." instance=ExtResource("47_7426h")]
+visible = false
+
+[node name="structure-cross2" parent="." instance=ExtResource("48_m06uo")]
+visible = false
+
+[node name="structure-pole2" parent="." instance=ExtResource("49_wv2d7")]
+visible = false
+
+[node name="structure-poles2" parent="." instance=ExtResource("50_8pl43")]
+visible = false
+
+[node name="structure-wall-cross2" parent="." instance=ExtResource("51_5lcfv")]
+visible = false
+
+[node name="structure-wall2" parent="." instance=ExtResource("52_41ctr")]
+visible = false
+
+[node name="structure2" parent="." instance=ExtResource("53_aq1g8")]
+visible = false
+
+[node name="tower-base2" parent="." instance=ExtResource("54_j0yei")]
+visible = false
+
+[node name="tower-edge2" parent="." instance=ExtResource("55_ec4ch")]
+visible = false
+
+[node name="tower-paint-base2" parent="." instance=ExtResource("56_ap7v7")]
+visible = false
+
+[node name="tower-paint2" parent="." instance=ExtResource("57_dhum6")]
+visible = false
+
+[node name="tower-top2" parent="." instance=ExtResource("58_spa64")]
+visible = false
+
+[node name="tower2" parent="." instance=ExtResource("59_l4rhd")]
+visible = false
+
+[node name="tree-large2" parent="." instance=ExtResource("60_frhwu")]
+visible = false
+
+[node name="tree-shrub2" parent="." instance=ExtResource("61_kns08")]
+visible = false
+
+[node name="wall-detail2" parent="." instance=ExtResource("62_ytl4j")]
+visible = false
+
+[node name="wall-door2" parent="." instance=ExtResource("63_yml5o")]
+visible = false
+
+[node name="wall-flat-gate2" parent="." instance=ExtResource("64_5cbar")]
+visible = false
+
+[node name="wall-fortified-door2" parent="." instance=ExtResource("65_8xjn0")]
+visible = false
+
+[node name="wall-fortified-gate-half2" parent="." instance=ExtResource("66_m6r4a")]
+visible = false
+
+[node name="wall-fortified-gate2" parent="." instance=ExtResource("67_gka5v")]
+visible = false
+
+[node name="wall-fortified-half2" parent="." instance=ExtResource("68_0656g")]
+visible = false
+
+[node name="wall-fortified-paint-door2" parent="." instance=ExtResource("69_4hlki")]
+visible = false
+
+[node name="wall-fortified-paint-gate2" parent="." instance=ExtResource("70_khcbd")]
+visible = false
+
+[node name="wall-fortified-paint-half2" parent="." instance=ExtResource("71_h0tec")]
+visible = false
+
+[node name="wall-fortified-paint-window2" parent="." instance=ExtResource("72_d52se")]
+visible = false
+
+[node name="wall-fortified-paint2" parent="." instance=ExtResource("73_wcbc2")]
+visible = false
+
+[node name="wall-fortified-window2" parent="." instance=ExtResource("74_qr654")]
+visible = false
+
+[node name="wall-fortified2" parent="." instance=ExtResource("75_8sc1w")]
+visible = false
+
+[node name="wall-gate-half2" parent="." instance=ExtResource("76_ib1e4")]
+visible = false
+
+[node name="wall-gate2" parent="." instance=ExtResource("77_n56oj")]
+visible = false
+
+[node name="wall-half2" parent="." instance=ExtResource("78_wfker")]
+visible = false
+
+[node name="wall-low2" parent="." instance=ExtResource("79_4g60i")]
+visible = false
+
+[node name="wall-paint-detail2" parent="." instance=ExtResource("80_45i5l")]
+visible = false
+
+[node name="wall-paint-door2" parent="." instance=ExtResource("81_6fp5w")]
+visible = false
+
+[node name="wall-paint-flat2" parent="." instance=ExtResource("82_bia5x")]
+visible = false
+
+[node name="wall-paint-gate2" parent="." instance=ExtResource("83_1iyd7")]
+visible = false
+
+[node name="wall-paint-half2" parent="." instance=ExtResource("84_6qsa3")]
+visible = false
+
+[node name="wall-paint-window2" parent="." instance=ExtResource("85_7t6qy")]
+visible = false
+
+[node name="wall-paint2" parent="." instance=ExtResource("86_r0fll")]
+visible = false
+
+[node name="wall-pane-door2" parent="." instance=ExtResource("87_mrg65")]
+visible = false
+
+[node name="wall-pane-paint-door2" parent="." instance=ExtResource("88_5gjls")]
+visible = false
+
+[node name="wall-pane-paint-window2" parent="." instance=ExtResource("89_14upd")]
+visible = false
+
+[node name="wall-pane-paint2" parent="." instance=ExtResource("90_gx07x")]
+visible = false
+
+[node name="wall-pane-painted-wood-door2" parent="." instance=ExtResource("91_kmtdk")]
+visible = false
+
+[node name="wall-pane-painted-wood-window2" parent="." instance=ExtResource("92_qo8yl")]
+visible = false
+
+[node name="wall-pane-painted-wood2" parent="." instance=ExtResource("93_aksbt")]
+visible = false
+
+[node name="wall-pane-window2" parent="." instance=ExtResource("94_wwo26")]
+visible = false
+
+[node name="wall-pane-wood-door2" parent="." instance=ExtResource("95_ct6bp")]
+visible = false
+
+[node name="wall-pane-wood-window2" parent="." instance=ExtResource("96_c4hn4")]
+visible = false
+
+[node name="wall-pane-wood2" parent="." instance=ExtResource("97_6ex3n")]
+visible = false
+
+[node name="wall-pane2" parent="." instance=ExtResource("98_x03dk")]
+visible = false
+
+[node name="wall-window2" parent="." instance=ExtResource("99_l4emk")]
+visible = false
+
+[node name="wall2" type="Node3D" parent="."]
+visible = false
+
+[node name="wall" type="MeshInstance3D" parent="wall2"]
+mesh = SubResource("ArrayMesh_pmfyr")
+skeleton = NodePath("")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="wall2/wall"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="wall2/wall/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_yii30")
+
+[node name="water2" parent="." instance=ExtResource("101_gx876")]
+visible = false
+
+[node name="wood-floor-half2" parent="." instance=ExtResource("102_ivpt5")]
+visible = false
+
+[node name="wood-floor-quarter2" parent="." instance=ExtResource("103_orbu6")]
+visible = false
+
+[node name="wood-floor-railing2" parent="." instance=ExtResource("104_u5h1f")]
+visible = false
+
+[node name="wood-floor2" parent="." instance=ExtResource("105_5oh51")]
+visible = false
