@@ -1,21 +1,28 @@
-[gd_scene load_steps=4 format=4 uid="uid://cre5n3157ylps"]
+[gd_scene load_steps=5 format=4 uid="uid://cre5n3157ylps"]
 
 [ext_resource type="Script" uid="uid://bcfomdebj138b" path="res://scripts/Chunk.cs" id="1_3txbk"]
 [ext_resource type="Material" uid="uid://c3t28jbckblwd" path="res://assets/materials/GridChunkMaterial.tres" id="2_qt7hk"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_qt7hk"]
 _surfaces = [{
-"aabb": AABB(0, 0, 0, 3, 1e-05, 3),
+"aabb": AABB(-3, 0, -3, 6, 1e-05, 6),
 "attribute_data": PackedByteArray("AAAAAAAAAAAAAIA/AAAAAAAAgD8AAIA/AACAPwAAgD8AAAAAAACAPwAAAAAAAAAA"),
 "format": 34359738391,
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 6,
-"vertex_data": PackedByteArray("AAAAAAAAAAAAAAAAAABAQAAAAAAAAAAAAABAQAAAAAAAAEBAAABAQAAAAAAAAEBAAAAAAAAAAAAAAEBAAAAAAAAAAAAAAAAA/3///////7//f///////v/9///////+//3///////7//f///////v/9///////+/")
+"vertex_data": PackedByteArray("AABAwAAAAAAAAEDAAABAQAAAAAAAAEDAAABAQAAAAAAAAEBAAABAQAAAAAAAAEBAAABAwAAAAAAAAEBAAABAwAAAAAAAAEDA/3///////7//f///////v/9///////+//3///////7//f///////v/9///////+/")
 }]
 
-[node name="Chunk" type="Node3D"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_qt7hk"]
+size = Vector3(6, 1, 6)
+
+[node name="Chunk" type="Node3D" node_paths=PackedStringArray("ChunkMeshInstance", "ChunkCollision")]
 script = ExtResource("1_3txbk")
+ChunkMeshInstance = NodePath("Area3D/ChunkMeshInstance")
+ChunkMaterial = ExtResource("2_qt7hk")
+ChunkCollision = NodePath("Area3D/ChunkCollision")
+TileSize = 2
 
 [node name="Area3D" type="Area3D" parent="."]
 
@@ -23,3 +30,6 @@ script = ExtResource("1_3txbk")
 material_override = ExtResource("2_qt7hk")
 mesh = SubResource("ArrayMesh_qt7hk")
 skeleton = NodePath("../..")
+
+[node name="ChunkCollision" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_qt7hk")
