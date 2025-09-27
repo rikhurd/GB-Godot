@@ -82,17 +82,12 @@ public partial class Chunk : Node3D
 	}
 	private void BuildMesh()
 	{
-		SurfaceTool st = new SurfaceTool();
-		st.Begin(Mesh.PrimitiveType.Triangles);
-
 		int ChunkX = ChunkSize.X * TileSize;
 		int ChunkY = ChunkSize.Y * TileSize;
 
-		// Compute half-size for centering
 		float halfX = ChunkX * 0.5f;
 		float halfY = ChunkY * 0.5f;
 
-		// Define the vertices for the quad, centered
 		Vector3[] vertices = new Vector3[]
 		{
 			new Vector3(-halfX, 0, -halfY),
@@ -101,7 +96,6 @@ public partial class Chunk : Node3D
 			new Vector3(-halfX, 0, halfY)
 		};
 
-		// Define UVs
 		Vector2[] uvs = new Vector2[]
 		{
 			new Vector2(0,0),
@@ -110,26 +104,28 @@ public partial class Chunk : Node3D
 			new Vector2(0,1)
 		};
 
-		// Define triangles
-		int[] indices = new int[]
-		{
-			0,1,2,
-			2,3,0
-		};
+		int[] indices = new int[] { 0, 1, 2, 2, 3, 0 };
 
-		// Add vertices to the SurfaceTool
-		for (int i = 0; i < indices.Length; i++)
-		{
-			st.SetUV(uvs[indices[i]]);
-			st.AddVertex(vertices[indices[i]]);
-		}
+		// MANUAL NORMALS: every vertex points up
+		Vector3[] normals = new Vector3[vertices.Length];
+		for (int i = 0; i < normals.Length; i++)
+			normals[i] = Vector3.Up;
 
-		st.GenerateNormals();
-		st.GenerateTangents();
+		var arrays = new Godot.Collections.Array();
+		arrays.Resize((int)Mesh.ArrayType.Max);
 
-		Mesh NewMesh = st.Commit();
-		ChunkMeshInstance.Mesh = NewMesh;
+		arrays[(int)Mesh.ArrayType.Vertex] = vertices;
+		arrays[(int)Mesh.ArrayType.Normal] = normals;
+		arrays[(int)Mesh.ArrayType.TexUV] = uvs;
+		arrays[(int)Mesh.ArrayType.Index] = indices;
+
+		var arrayMesh = new ArrayMesh();
+		arrayMesh.AddSurfaceFromArrays(Mesh.PrimitiveType.Triangles, arrays);
+
+		ChunkMeshInstance.Mesh = arrayMesh;
 	}
+
+
 
 	private void UpdateChunkShader()
 	{
@@ -163,5 +159,5 @@ public partial class Chunk : Node3D
 
 		ChunkCollisionShape.Size = new Vector3(ChunkSize.X * TileSize, ChunkHeight, ChunkSize.Y * TileSize);
 		ChunkCollision.Position = new Vector3(0, ChunkHeight * 0.5f, 0);
-    }
+	}
 }

@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://c15tyjg7ojifn"]
+
+[ext_resource type="Script" uid="uid://dnw83fm1g6pws" path="res://scripts/GridManager.cs" id="1_ydq4i"]
+[ext_resource type="PackedScene" uid="uid://b3ghhv6mktkvo" path="res://scenes/GridChunk.tscn" id="2_8h15h"]
+
+[node name="GridManager" type="Node"]
+script = ExtResource("1_ydq4i")
+ChunkScene = ExtResource("2_8h15h")

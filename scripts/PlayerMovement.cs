@@ -36,8 +36,8 @@ public partial class PlayerMovement : CharacterBody3D
 		CameraPivot = GetNode<Node3D>("CameraPivot");
 	}
 
-    public override void _Input(InputEvent @event)
-    {
+	public override void _Input(InputEvent @event)
+	{
 		if (@event is InputEventMouseMotion mouseMotion)
 		{
 			float NewCameraPitch = CameraPivot.Rotation.X - mouseMotion.Relative.Y * MouseSensitivity;
@@ -47,6 +47,17 @@ public partial class PlayerMovement : CharacterBody3D
 			float NewCameraYaw = CameraPivot.Rotation.Y - mouseMotion.Relative.X * MouseSensitivity;
 
 			CameraPivot.Rotation = new Vector3(NewCameraPitch, NewCameraYaw, 0);
+		}
+		if (@event is InputEventKey keyEvent && keyEvent.Pressed && keyEvent.Keycode == Key.Escape)
+        {
+            if (Input.MouseMode == Input.MouseModeEnum.Captured)
+            {
+                Input.MouseMode = Input.MouseModeEnum.Visible; // Release the mouse
+            }
+            else
+            {
+                Input.MouseMode = Input.MouseModeEnum.Captured; // Recapture the mouse
+            }
         }
     }
 	public override void _PhysicsProcess(double delta)

@@ -17,7 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-GridManager="*res://scripts/GridManager.cs"
+GridManager="*res://scenes/GridManager.tscn"
 
 [display]
 
