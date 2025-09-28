@@ -11,17 +11,21 @@ height = 0.5
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5q5h1"]
 
-[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("CharacterVisualBody")]
+[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("CameraNode", "CameraPivot", "CharacterVisualBody")]
 script = ExtResource("1_p0vlq")
+Speed = 20.0
 MoveLeft = "MoveLeft"
 MoveRight = "MoveRight"
 MoveUp = "MoveUp"
 MoveDown = "MoveDown"
+CameraNode = NodePath("CameraPivot/SpringArm3D/PlayerCamera")
+CameraPivot = NodePath("CameraPivot")
 MouseSensitivity = 0.001
 CharacterVisualBody = NodePath("VisualBody")
 LerpWeight = 0.1
 
 [node name="VisualBody" type="MeshInstance3D" parent="."]
+layers = 3
 mesh = SubResource("CapsuleMesh_p0vlq")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="VisualBody"]

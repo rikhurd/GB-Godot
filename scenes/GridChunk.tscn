@@ -21,18 +21,19 @@ size = Vector3(96, 1, 96)
 
 [node name="Chunk" type="Node3D" node_paths=PackedStringArray("ChunkMeshInstance", "ChunkCollision")]
 script = ExtResource("1_22adb")
-ChunkMeshInstance = NodePath("Area3D/ChunkMeshInstance")
+ChunkMeshInstance = NodePath("ChunkMeshInstance")
 ChunkMaterial = ExtResource("2_7n21o")
-ChunkCollision = NodePath("Area3D/ChunkCollision")
+ChunkCollision = NodePath("StaticBody3D/ChunkCollision")
 TileSize = 3
 
-[node name="Area3D" type="Area3D" parent="."]
-
-[node name="ChunkMeshInstance" type="MeshInstance3D" parent="Area3D"]
+[node name="ChunkMeshInstance" type="MeshInstance3D" parent="."]
+layers = 2
 material_override = ExtResource("2_7n21o")
 mesh = SubResource("ArrayMesh_22adb")
-skeleton = NodePath("../..")
 
-[node name="ChunkCollision" type="CollisionShape3D" parent="Area3D"]
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+collision_layer = 3
+
+[node name="ChunkCollision" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("BoxShape3D_7n21o")

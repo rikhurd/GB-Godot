@@ -5,4 +5,5 @@
 
 [node name="GridManager" type="Node"]
 script = ExtResource("1_ydq4i")
+TileSize = 5
 ChunkScene = ExtResource("2_8h15h")

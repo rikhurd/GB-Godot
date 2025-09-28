@@ -4,8 +4,6 @@ using System;
 [Tool]
 public partial class GridChunk : Node3D
 {
-	public Vector2I ChunkID { get; set; }
-
 	[ExportGroup("Chunk Nodes")]
 	[Export]
 	private MeshInstance3D ChunkMeshInstance;
@@ -20,6 +18,9 @@ public partial class GridChunk : Node3D
 	private int _tileSize = 1;
 
 	[ExportGroup("Chunk Variables")]
+	[Export]
+	public Vector2I ChunkID { get; private set; }
+
 	[Export]
 	public int ChunkSize
 	{

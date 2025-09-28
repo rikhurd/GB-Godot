@@ -9,7 +9,7 @@ public partial class GridManager : Node
 	[Export]
     public int ChunkSize = 32;
 	[Export]
-	public int TileSize = 1;
+	public int TileSize = 3;
 	[Export]
 	public int ChunkHeight = 1;
 
@@ -21,24 +21,33 @@ public partial class GridManager : Node
     {
         Instance = this;
 
-        // Spawn first chunk at (0,0)
+        // Add initial chunks for debug
         SpawnChunk(new Vector2I(0, 0));
+        SpawnChunk(new Vector2I(0, 1));
+        SpawnChunk(new Vector2I(1, 0));
+        SpawnChunk(new Vector2I(1, 1));
+
+        SpawnChunk(new Vector2I(0, -1));
+        SpawnChunk(new Vector2I(-1, 0));
+        SpawnChunk(new Vector2I(-1, -1));
+        SpawnChunk(new Vector2I(1, -1));
+        SpawnChunk(new Vector2I(-1, 1));
     }
 
     public GridChunk SpawnChunk(Vector2I chunkID)
     {
         if (GridChunks.ContainsKey(chunkID))
-            return GridChunks[chunkID]; // already exists
+            return GridChunks[chunkID];
 
         // Instantiate chunk
         GridChunk chunk = ChunkScene.Instantiate<GridChunk>();
-        AddChild(chunk);
+        AddChild(chunk);        
 
         // Position it in world space
         chunk.Position = new Vector3(
-            chunkID.X * ChunkSize,
+            chunkID.X * ChunkSize * TileSize,
             0,
-            chunkID.Y * ChunkSize
+            chunkID.Y * ChunkSize * TileSize
         );
 
         chunk.InitializeChunk(chunkID, ChunkSize, TileSize, ChunkHeight);
@@ -47,14 +56,14 @@ public partial class GridManager : Node
         return chunk;
     }
 
-/// <summary>
-/// Gets the TileData at the given global tile position in the world grid.
-/// Converts global position to chunk ID and local tile coordinates.
-/// Example: ChunkSize = 32, globalTilePos = (50,70) -> chunkID = (1,2), local = (18,6).
-/// globalTilePos can come from player input, mouse clicks, or player movement.
-/// </summary>
-/// <param name="globalTilePos">The coordinates of the tile in the entire world grid.</param>
-/// <returns>The TileData structure at the specified global position.</returns>
+    /// <summary>
+    /// Gets the TileData at the given global tile position in the world grid.
+    /// Converts global position to chunk ID and local tile coordinates.
+    /// Example: ChunkSize = 32, globalTilePos = (50,70) -> chunkID = (1,2), local = (18,6).
+    /// globalTilePos can come from player input, mouse clicks, or player movement.
+    /// </summary>
+    /// <param name="globalTilePos">The coordinates of the tile in the entire world grid.</param>
+    /// <returns>The TileData structure at the specified global position.</returns>
     public TileData GetTile(Vector2I globalTilePos)
 	{
 		Vector2I chunkID = new(
