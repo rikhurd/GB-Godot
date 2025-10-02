@@ -68,12 +68,11 @@ public partial class GridChunk : Node3D
 			}
 		}
 	}
-
-	private TileData[,] _tiles;
+	// Create 2D array to hold tile data
+	private TileData[,] ChunkTileData;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		BuildMesh();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -81,15 +80,17 @@ public partial class GridChunk : Node3D
 	{
 	}
 
-	public void InitializeChunk(Vector2I chunkID, int chunkSize, int tileSize, int chunkHeight)
-    {
-        ChunkID = chunkID;
-        ChunkSize = chunkSize;
-        TileSize = tileSize;
-        ChunkHeight = chunkHeight;
+	public void InitializeChunk(Vector2I chunkID, int chunkSize, int tileSize, int chunkHeight, TileData[,] tileData)
+	{
+		ChunkID = chunkID;
+		ChunkSize = chunkSize;
+		TileSize = tileSize;
+		ChunkHeight = chunkHeight;
 
-        // Create the tile data array
-        _tiles = new TileData[ChunkSize, ChunkSize];
+		// Create the tile data array
+		ChunkTileData = tileData;
+
+		BuildMesh();
     }
 
 	private void ScheduleMeshBuild()
@@ -194,33 +195,17 @@ public partial class GridChunk : Node3D
 		ChunkCollision.Position = new Vector3(0, ChunkHeight * 0.5f, 0);
 	}
 
-	public void InitializeTiles()
-	{
-		_tiles = new TileData[ChunkSize, ChunkSize];
-		for (int y = 0; y < ChunkSize; y++)
-		{
-			for (int x = 0; x < ChunkSize; x++)
-			{
-				_tiles[x, y] = new TileData(
-					tileIndex: new Vector2I(x, y),
-					solid: false,
-					occupied: false
-				);
-			}
-		}
-	}
-
 	public TileData GetTile(int x, int y)
 	{
 		if (x < 0 || x >= ChunkSize || y < 0 || y >= ChunkSize)
 			return default;
-		return _tiles[x, y];
+		return ChunkTileData[x, y];
 	}
 
 	public void SetTile(int x, int y, TileData tileData)
 	{
 		if (x < 0 || x >= ChunkSize || y < 0 || y >= ChunkSize)
 			return;
-		_tiles[x, y] = tileData;
+		ChunkTileData[x, y] = tileData;
 	}
 }

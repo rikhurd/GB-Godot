@@ -2,16 +2,17 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
+[Tool]
 public partial class GridManager : Node
 {
     public static GridManager Instance;
-	[ExportGroup("Chunk Variables")]
-	[Export]
+    [ExportGroup("Chunk Variables")]
+    [Export]
     public int ChunkSize = 32;
-	[Export]
-	public int TileSize = 3;
-	[Export]
-	public int ChunkHeight = 1;
+    [Export]
+    public int TileSize = 3;
+    [Export]
+    public int ChunkHeight = 1;
 
     [Export] public PackedScene ChunkScene;
 
@@ -41,7 +42,7 @@ public partial class GridManager : Node
 
         // Instantiate chunk
         GridChunk chunk = ChunkScene.Instantiate<GridChunk>();
-        AddChild(chunk);        
+        AddChild(chunk);
 
         // Position it in world space
         chunk.Position = new Vector3(
@@ -50,8 +51,9 @@ public partial class GridManager : Node
             chunkID.Y * ChunkSize * TileSize
         );
 
-        chunk.InitializeChunk(chunkID, ChunkSize, TileSize, ChunkHeight);
-		GridChunks[chunkID] = chunk;
+        TileData[,] tileData = new TileData[ChunkSize, ChunkSize];
+        chunk.InitializeChunk(chunkID, ChunkSize, TileSize, ChunkHeight, tileData);
+        GridChunks[chunkID] = chunk;
 
         return chunk;
     }
@@ -65,25 +67,25 @@ public partial class GridManager : Node
     /// <param name="globalTilePos">The coordinates of the tile in the entire world grid.</param>
     /// <returns>The TileData structure at the specified global position.</returns>
     public TileData GetTile(Vector2I globalTilePos)
-	{
-		Vector2I chunkID = new(
-			DivFloor(globalTilePos.X, ChunkSize),
-			DivFloor(globalTilePos.Y, ChunkSize)
-		);
+    {
+        Vector2I chunkID = new(
+            DivFloor(globalTilePos.X, ChunkSize),
+            DivFloor(globalTilePos.Y, ChunkSize)
+        );
 
-		if (!GridChunks.TryGetValue(chunkID, out GridChunk chunk))
-		{
-			// Lazy-load: spawn chunk if missing
-			chunk = SpawnChunk(chunkID);
-		}
+        if (!GridChunks.TryGetValue(chunkID, out GridChunk chunk))
+        {
+            // Lazy-load: spawn chunk if missing
+            chunk = SpawnChunk(chunkID);
+        }
 
-		Vector2I local = new(
-			Mod(globalTilePos.X, ChunkSize),
-			Mod(globalTilePos.Y, ChunkSize)
-		);
+        Vector2I local = new(
+            Mod(globalTilePos.X, ChunkSize),
+            Mod(globalTilePos.Y, ChunkSize)
+        );
 
-		return chunk.GetTile(local.X, local.Y);
-	}
+        return chunk.GetTile(local.X, local.Y);
+    }
 
     public void SetTile(Vector2I globalTilePos, TileData tile)
     {
@@ -105,11 +107,11 @@ public partial class GridManager : Node
         chunk.SetTile(local.X, local.Y, tile);
     }
 
-	// Integer division that always rounds DOWN
-	// This ensures that negative coordinates map correctly to chunk IDs
-	// Example: DivFloor(50, 32) = 1, DivFloor(-1, 32) = -1
+    // Integer division that always rounds DOWN
+    // This ensures that negative coordinates map correctly to chunk IDs
+    // Example: DivFloor(50, 32) = 1, DivFloor(-1, 32) = -1
     private int DivFloor(int a, int b) => (int)Math.Floor((double)a / b);
-	// Proper modulo operation that always returns a positive remainder
-	// Example: Mod(50, 32) = 18, Mod(-1, 32) = 31
+    // Proper modulo operation that always returns a positive remainder
+    // Example: Mod(50, 32) = 18, Mod(-1, 32) = 31
     private int Mod(int a, int b) => ((a % b) + b) % b;
 }
