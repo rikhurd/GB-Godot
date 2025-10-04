@@ -99,9 +99,6 @@ public partial class GridChunk : Node3D
 	}
 	private void BuildMesh()
 	{
-		// Half size of Chunk
-		float halfChunkSize = (ChunkSize * TileSize) * 0.5f;
-
 		// --- Vertices & UVs ---
 		Vector3[] vertices = new Vector3[(ChunkSize + 1) * (ChunkSize + 1)];
 		Vector2[] uvs = new Vector2[vertices.Length];
@@ -113,8 +110,8 @@ public partial class GridChunk : Node3D
 			{
 				int i = y * (ChunkSize + 1) + x;
 
-				float vx = x * TileSize - halfChunkSize;
-				float vz = y * TileSize - halfChunkSize;
+				float vx = x * TileSize;
+				float vz = y * TileSize;
 
 				vertices[i] = new Vector3(vx, 0, vz);
 				uvs[i] = new Vector2((float)x / ChunkSize, (float)y / ChunkSize);
@@ -178,31 +175,36 @@ public partial class GridChunk : Node3D
 		// ChunkMaterial.SetShaderParameter("cell_size", CellSize);
 	}
 	private void UpdateChunkCollision()
-	{
-		if (ChunkCollision == null) return;
+{
+    if (ChunkCollision == null) return;
 
-		if (ChunkCollision.Shape == null || ChunkCollision.Shape is not BoxShape3D)
-		{
-			ChunkCollisionShape = new BoxShape3D();
-			ChunkCollision.Shape = ChunkCollisionShape;
-		}
-		else
-		{
-			ChunkCollisionShape = (BoxShape3D)ChunkCollision.Shape;
-		}
+    if (ChunkCollision.Shape == null || ChunkCollision.Shape is not BoxShape3D)
+    {
+        ChunkCollisionShape = new BoxShape3D();
+        ChunkCollision.Shape = ChunkCollisionShape;
+    }
+    else
+    {
+        ChunkCollisionShape = (BoxShape3D)ChunkCollision.Shape;
+    }
 
-		ChunkCollisionShape.Size = new Vector3(ChunkSize * TileSize, ChunkHeight, ChunkSize * TileSize);
-		ChunkCollision.Position = new Vector3(0, ChunkHeight * 0.5f, 0);
-	}
+    ChunkCollisionShape.Size = new Vector3(ChunkSize * TileSize, ChunkHeight, ChunkSize * TileSize);
 
-	public TileData GetTile(int x, int y)
+    ChunkCollision.Position = new Vector3(
+        (ChunkSize * TileSize) * 0.5f,
+        ChunkHeight * 0.5f,
+        (ChunkSize * TileSize) * 0.5f
+    );
+}
+
+	public TileData GetLocalTile(int x, int y)
 	{
 		if (x < 0 || x >= ChunkSize || y < 0 || y >= ChunkSize)
 			return default;
 		return ChunkTileData[x, y];
 	}
 
-	public void SetTile(int x, int y, TileData tileData)
+	public void SetLocalTile(int x, int y, TileData tileData)
 	{
 		if (x < 0 || x >= ChunkSize || y < 0 || y >= ChunkSize)
 			return;

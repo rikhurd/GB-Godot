@@ -14,7 +14,16 @@ public partial class GridManager : Node
     [Export]
     public int ChunkHeight = 1;
 
-    [Export] public PackedScene ChunkScene;
+    [Export]
+    public PackedScene ChunkScene;
+    /// <summary>
+    /// This sets the amount of chunks inside a level. Since first chunk's ID is 0,0 this checks for the one dimension.
+    /// For example LevelSize = 32 is qual to negative -32 and positive 32 so the level is 64x64 chunks.
+    /// There needs to be done testing if in procedural maps there can be no limits, but that is going to be done later when there is a lot more going on inside the level,
+    /// which limits the efficiency on endless maps. Also there is no need for limitless maps in current game loop design. 
+    /// </summary>
+    [Export]
+    public int LevelSize = 16;
 
     public Dictionary<Vector2I, GridChunk> GridChunks = new Dictionary<Vector2I, GridChunk>();
 
@@ -22,7 +31,12 @@ public partial class GridManager : Node
     {
         Instance = this;
 
-        // Add initial chunks for debug
+        InitializeGridManager();
+    }
+
+    // InitalizeGridManager or InitalizeLevel?
+    public void InitializeGridManager()
+    {
         SpawnChunk(new Vector2I(0, 0));
         SpawnChunk(new Vector2I(0, 1));
         SpawnChunk(new Vector2I(1, 0));
@@ -35,11 +49,17 @@ public partial class GridManager : Node
         SpawnChunk(new Vector2I(-1, 1));
     }
 
-    public GridChunk SpawnChunk(Vector2I chunkID)
+    public void SpawnChunk(Vector2I chunkID)
     {
         if (GridChunks.ContainsKey(chunkID))
-            return GridChunks[chunkID];
+            return;
 
+        if (chunkID.X < -LevelSize || chunkID.X > LevelSize ||
+            chunkID.Y < -LevelSize || chunkID.Y > LevelSize)
+        {
+    GD.Print("Out of bounds chunkID: ", chunkID);
+                return;
+        }
         // Instantiate chunk
         GridChunk chunk = ChunkScene.Instantiate<GridChunk>();
         AddChild(chunk);
@@ -55,7 +75,7 @@ public partial class GridManager : Node
         chunk.InitializeChunk(chunkID, ChunkSize, TileSize, ChunkHeight, tileData);
         GridChunks[chunkID] = chunk;
 
-        return chunk;
+        return;
     }
 
     /// <summary>
@@ -66,17 +86,19 @@ public partial class GridManager : Node
     /// </summary>
     /// <param name="globalTilePos">The coordinates of the tile in the entire world grid.</param>
     /// <returns>The TileData structure at the specified global position.</returns>
-    public TileData GetTile(Vector2I globalTilePos)
+    public TileData GetGlobalTile(Vector2I globalTilePos)
     {
         Vector2I chunkID = new(
             DivFloor(globalTilePos.X, ChunkSize),
             DivFloor(globalTilePos.Y, ChunkSize)
         );
+
+        GD.Print("DivFloor chunkID: ", chunkID);
 
         if (!GridChunks.TryGetValue(chunkID, out GridChunk chunk))
         {
             // Lazy-load: spawn chunk if missing
-            chunk = SpawnChunk(chunkID);
+            // chunk = SpawnChunk(chunkID);
         }
 
         Vector2I local = new(
@@ -84,10 +106,10 @@ public partial class GridManager : Node
             Mod(globalTilePos.Y, ChunkSize)
         );
 
-        return chunk.GetTile(local.X, local.Y);
+        return chunk.GetLocalTile(local.X, local.Y);
     }
 
-    public void SetTile(Vector2I globalTilePos, TileData tile)
+    public void SetGlobalTile(Vector2I globalTilePos, TileData tile)
     {
         Vector2I chunkID = new(
             DivFloor(globalTilePos.X, ChunkSize),
@@ -96,7 +118,7 @@ public partial class GridManager : Node
 
         if (!GridChunks.TryGetValue(chunkID, out GridChunk chunk))
         {
-            chunk = SpawnChunk(chunkID);
+            // chunk = SpawnChunk(chunkID);
         }
 
         Vector2I local = new(
@@ -104,7 +126,7 @@ public partial class GridManager : Node
             Mod(globalTilePos.Y, ChunkSize)
         );
 
-        chunk.SetTile(local.X, local.Y, tile);
+        chunk.SetLocalTile(local.X, local.Y, tile);
     }
 
     // Integer division that always rounds DOWN

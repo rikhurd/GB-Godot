@@ -8,3 +8,4 @@ script = ExtResource("1_ydq4i")
 ChunkSize = 16
 TileSize = 5
 ChunkScene = ExtResource("2_8h15h")
+LevelSize = 1

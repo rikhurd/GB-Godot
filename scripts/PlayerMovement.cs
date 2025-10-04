@@ -95,7 +95,7 @@ public partial class PlayerMovement : CharacterBody3D
 		int tileY = Mathf.FloorToInt(hitPos.Z / GridManager.Instance.TileSize);
 
 		Vector2I globalTilePos = new Vector2I(tileX, tileY);
-		TileData clickedTile = GridManager.Instance.GetTile(globalTilePos);
+		TileData clickedTile = GridManager.Instance.GetGlobalTile(globalTilePos);
 
 		GD.Print($"Clicked Tile at {globalTilePos} in Chunk {chunk.ChunkID}: Solid={clickedTile.Solid}, Occupied={clickedTile.Occupied}");
 	}
