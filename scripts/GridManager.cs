@@ -8,9 +8,9 @@ public partial class GridManager : Node
     public static GridManager Instance;
     [ExportGroup("Chunk Variables")]
     [Export]
-    public int ChunkSize = 32;
+    public int ChunkSize = 0;
     [Export]
-    public int TileSize = 3;
+    public int TileSize = 5;
     [Export]
     public int ChunkHeight = 1;
 
@@ -92,8 +92,6 @@ public partial class GridManager : Node
             DivFloor(globalTilePos.X, ChunkSize),
             DivFloor(globalTilePos.Y, ChunkSize)
         );
-
-        GD.Print("DivFloor chunkID: ", chunkID);
 
         if (!GridChunks.TryGetValue(chunkID, out GridChunk chunk))
         {

@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://qs0xsjjb5j16"]
 
-[ext_resource type="Script" uid="uid://bh5vr22u6pg26" path="res://scripts/PlayerMovement.cs" id="1_p0vlq"]
+[ext_resource type="Script" uid="uid://bh5vr22u6pg26" path="res://scripts/Player.cs" id="1_p0vlq"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_p0vlq"]
 
@@ -11,18 +11,9 @@ height = 0.5
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5q5h1"]
 
-[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("CameraNode", "CameraPivot", "CharacterVisualBody")]
+[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("CharacterVisualBody")]
 script = ExtResource("1_p0vlq")
-Speed = 20.0
-MoveLeft = "MoveLeft"
-MoveRight = "MoveRight"
-MoveUp = "MoveUp"
-MoveDown = "MoveDown"
-CameraNode = NodePath("CameraPivot/SpringArm3D/PlayerCamera")
-CameraPivot = NodePath("CameraPivot")
-MouseSensitivity = 0.001
 CharacterVisualBody = NodePath("VisualBody")
-LerpWeight = 0.1
 
 [node name="VisualBody" type="MeshInstance3D" parent="."]
 layers = 3
@@ -35,12 +26,3 @@ skeleton = NodePath("../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_5q5h1")
-
-[node name="CameraPivot" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-
-[node name="SpringArm3D" type="SpringArm3D" parent="CameraPivot"]
-transform = Transform3D(1, 0, 0, 0, 0.93969256, 0.3420201, 0, -0.3420201, 0.93969256, 0, 0, 0)
-spring_length = 7.0
-
-[node name="PlayerCamera" type="Camera3D" parent="CameraPivot/SpringArm3D"]
