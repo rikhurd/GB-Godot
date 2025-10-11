@@ -18,5 +18,7 @@ mono_crash.*.json
 
 # IDE-specific ignores
 .vs/
-# We actually want .vscode/ so don't need to make debug in vscode possible on every device.
+
+# We actually want .vscode/ so don't need to make debug in vscode possible on every device. 
+# This debug is needed to be done i n Godot specifically
 # .vscode/
