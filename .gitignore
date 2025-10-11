@@ -15,3 +15,8 @@ export_credentials.cfg
 .mono/
 data_*/
 mono_crash.*.json
+
+# IDE-specific ignores
+.vs/
+# We actually want .vscode/ so don't need to make debug in vscode possible on every device.
+# .vscode/
