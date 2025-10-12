@@ -3,6 +3,10 @@ using System;
 
 public partial class GameUI : Control
 {
+    [Export] private Button EditGridButton;
+
+    // Signal to broadcast button click
+    [Signal] public delegate void EditGridButtonPressedEventHandler();
     public override void _Ready()
     {
     }
@@ -10,5 +14,6 @@ public partial class GameUI : Control
     private void OnEditButtonPressed()
     {
         GD.Print("Button clicked!");
+        EmitSignal("EditGridButtonPressedEventHandler");
     }
 }

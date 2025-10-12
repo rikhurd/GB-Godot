@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://c1sqvjmy2ue5n"]
+[gd_scene load_steps=6 format=3 uid="uid://c1sqvjmy2ue5n"]
 
-[ext_resource type="PackedScene" uid="uid://qs0xsjjb5j16" path="res://scenes/Player.tscn" id="1_ibkli"]
+[ext_resource type="PackedScene" uid="uid://by2j56dy07kqd" path="res://scenes/Player.tscn" id="1_ibkli"]
 [ext_resource type="PackedScene" uid="uid://d1dtsml0g0lj3" path="res://scenes/GameUI.tscn" id="2_qbsmt"]
-[ext_resource type="PackedScene" uid="uid://c61vmpknajur8" path="res://scenes/PlayerCamera.tscn" id="3_cpr0p"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ibkli"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -28,8 +27,5 @@ shadow_enabled = true
 
 [node name="GameUI" parent="." instance=ExtResource("2_qbsmt")]
 
-[node name="CharacterBody3D" parent="." instance=ExtResource("1_ibkli")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
-
-[node name="PlayerController" parent="." node_paths=PackedStringArray("TargetPlayer") instance=ExtResource("3_cpr0p")]
-TargetPlayer = NodePath("../CharacterBody3D")
+[node name="Player" parent="." instance=ExtResource("1_ibkli")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)

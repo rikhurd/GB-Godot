@@ -91,81 +91,86 @@ public partial class PlayerController : Node3D
 	}
 
 	public override void _PhysicsProcess(double delta)
-    {
-        Vector3 newVelocity = Vector3.Zero;
+	{
+		Vector3 newVelocity = Vector3.Zero;
 
-        // --- Handle camera rotation ---
-        float camRotationY = Rotation.Y;
-        if (Input.IsActionPressed(RotateLeft))
-        {
-            camRotationY -= Mathf.DegToRad(CameraRotateSpeed) * (float)delta;
-        }
-        if (Input.IsActionPressed(RotateRight))
-        {
-            camRotationY += Mathf.DegToRad(CameraRotateSpeed) * (float)delta;
-        }
+		// --- Handle camera rotation ---
+		float camRotationY = Rotation.Y;
+		if (Input.IsActionPressed(RotateLeft))
+		{
+			camRotationY -= Mathf.DegToRad(CameraRotateSpeed) * (float)delta;
+		}
+		if (Input.IsActionPressed(RotateRight))
+		{
+			camRotationY += Mathf.DegToRad(CameraRotateSpeed) * (float)delta;
+		}
 
-        Rotation = new Vector3(
-            Rotation.X,
-            camRotationY,
-            Rotation.Z
-        );
+		Rotation = new Vector3(
+			Rotation.X,
+			camRotationY,
+			Rotation.Z
+		);
 
-        // --- Get input direction ---
-        Vector2 inputDir = Input.GetVector(MoveLeft, MoveRight, MoveUp, MoveDown);
-        Vector3 direction = Vector3.Zero;
+		// --- Get input direction ---
+		Vector2 inputDir = Input.GetVector(MoveLeft, MoveRight, MoveUp, MoveDown);
+		Vector3 direction = Vector3.Zero;
 
-        if (inputDir != Vector2.Zero)
-        {
-            Transform3D camTransform = GlobalTransform;
+		if (inputDir != Vector2.Zero)
+		{
+			Transform3D camTransform = GlobalTransform;
 
-            Vector3 camForward = camTransform.Basis.Z;
-            Vector3 camRight = camTransform.Basis.X;
+			Vector3 camForward = camTransform.Basis.Z;
+			Vector3 camRight = camTransform.Basis.X;
 
 			camForward.Y = 0;
 			camRight.Y = 0;
-            camForward = camForward.Normalized();
-            camRight = camRight.Normalized();
+			camForward = camForward.Normalized();
+			camRight = camRight.Normalized();
 
 			direction = (camRight * inputDir.X + camForward * inputDir.Y).Normalized();
-        }
+		}
 
-        if (AttachedToPlayer && TargetPlayer != null)
-        {
+		if (AttachedToPlayer && TargetPlayer != null)
+		{
 			// Smooth camera follow when decoupled
-            Vector3 targetPosition = TargetPlayer.GlobalTransform.Origin;
-            GlobalPosition = GlobalPosition.Lerp(
-                targetPosition, FollowLerpSpeed *(float)delta
-            );
+			Vector3 targetPosition = TargetPlayer.GlobalTransform.Origin;
+			GlobalPosition = GlobalPosition.Lerp(
+				targetPosition, FollowLerpSpeed * (float)delta
+			);
 
-            // --- Player movement ---
+			// --- Player movement ---
 			newVelocity = TargetPlayer.Velocity;
 
-            // Apply horizontal input
-            newVelocity.X = direction.X * Speed;
-            newVelocity.Z = direction.Z * Speed;
+			// Apply horizontal input
+			newVelocity.X = direction.X * Speed;
+			newVelocity.Z = direction.Z * Speed;
 
-            // Gravity
-            if (!TargetPlayer.IsOnFloor())
+			// Gravity
+			if (!TargetPlayer.IsOnFloor())
 				newVelocity += TargetPlayer.GetGravity() * (float)delta;
 
-            // Jump
-            if (Input.IsActionJustPressed("ui_accept") && TargetPlayer.IsOnFloor())
-                newVelocity.Y = JumpVelocity;
+			// Jump
+			if (Input.IsActionJustPressed("ui_accept") && TargetPlayer.IsOnFloor())
+				newVelocity.Y = JumpVelocity;
 
-            // Move the player
-            TargetPlayer.Velocity = newVelocity;
-            TargetPlayer.MoveAndSlide();
-        }
-        else
+			// Move the player
+			TargetPlayer.Velocity = newVelocity;
+			TargetPlayer.MoveAndSlide();
+		}
+		else
 		{
 			// --- Free camera movement ---
 			cameraVelocity.X = direction.X * Speed;
 			cameraVelocity.Z = direction.Z * Speed;
 
-            // Apply movement
-            GlobalTranslate(cameraVelocity * (float)delta);
-        }
+			// Apply movement
+			GlobalTranslate(cameraVelocity * (float)delta);
+		}
+	}
+	
+	public void EnableGridEdit()
+    {
+        GD.Print("Grid editing enabled!");
     }
 
 	// Called when the node enters the scene tree for the first time.
