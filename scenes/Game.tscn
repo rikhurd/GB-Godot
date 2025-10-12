@@ -32,5 +32,4 @@ shadow_enabled = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
 
 [node name="PlayerController" parent="." node_paths=PackedStringArray("TargetPlayer") instance=ExtResource("3_cpr0p")]
-Speed = 20.0
 TargetPlayer = NodePath("../CharacterBody3D")

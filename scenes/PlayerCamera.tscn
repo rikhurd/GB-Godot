@@ -2,15 +2,16 @@
 
 [ext_resource type="Script" uid="uid://cpp6oap2bgjfd" path="res://scripts/PlayerController.cs" id="1_lp7lw"]
 
-[node name="PlayerController" type="Node3D" node_paths=PackedStringArray("CameraNode", "CameraPivot")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+[node name="PlayerController" type="Node3D" node_paths=PackedStringArray("CameraNode")]
 script = ExtResource("1_lp7lw")
+Speed = 40.0
 MoveLeft = "MoveLeft"
 MoveRight = "MoveRight"
 MoveUp = "MoveUp"
 MoveDown = "MoveDown"
 CameraNode = NodePath("SpringArm3D/PlayerCamera")
-CameraPivot = NodePath(".")
+CameraRotateSpeed = 120.0
+FollowLerpSpeed = 7.0
 
 [node name="SpringArm3D" type="SpringArm3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.49999994, 0.8660254, 0, -0.8660254, 0.49999994, 0, 0, 0)

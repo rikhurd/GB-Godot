@@ -20,7 +20,6 @@ public partial class PlayerController : Node3D
 
 	[ExportGroup("Camera Variables")]
 	[Export] public Camera3D CameraNode;
-	[Export] private Node3D CameraPivot;
 	[Export] public float CameraRotateSpeed = 90f;
 	[Export] public float RayLength = 1000f;
 	[Export] public float MouseSensitivity = 0.01f;
@@ -96,41 +95,46 @@ public partial class PlayerController : Node3D
         Vector3 newVelocity = Vector3.Zero;
 
         // --- Handle camera rotation ---
-        float camRotationY = CameraPivot.Rotation.Y;
+        float camRotationY = Rotation.Y;
         if (Input.IsActionPressed(RotateLeft))
+        {
             camRotationY -= Mathf.DegToRad(CameraRotateSpeed) * (float)delta;
+        }
         if (Input.IsActionPressed(RotateRight))
+        {
             camRotationY += Mathf.DegToRad(CameraRotateSpeed) * (float)delta;
+        }
 
-        CameraPivot.Rotation = new Vector3(
-            CameraPivot.Rotation.X,
+        Rotation = new Vector3(
+            Rotation.X,
             camRotationY,
-            CameraPivot.Rotation.Z
+            Rotation.Z
         );
 
         // --- Get input direction ---
         Vector2 inputDir = Input.GetVector(MoveLeft, MoveRight, MoveUp, MoveDown);
         Vector3 direction = Vector3.Zero;
 
-        if (inputDir.LengthSquared() > 0)
+        if (inputDir != Vector2.Zero)
         {
-            Transform3D camTransform = CameraPivot.GlobalTransform;
+            Transform3D camTransform = GlobalTransform;
 
             Vector3 camForward = camTransform.Basis.Z;
             Vector3 camRight = camTransform.Basis.X;
 
-            camForward.Y = camRight.Y = 0;
+			camForward.Y = 0;
+			camRight.Y = 0;
             camForward = camForward.Normalized();
             camRight = camRight.Normalized();
 
-            direction = (camRight * inputDir.X + camForward * inputDir.Y).Normalized();
+			direction = (camRight * inputDir.X + camForward * inputDir.Y).Normalized();
         }
 
         if (AttachedToPlayer && TargetPlayer != null)
         {
-			// Smooth camera follow
+			// Smooth camera follow when decoupled
             Vector3 targetPosition = TargetPlayer.GlobalTransform.Origin;
-            CameraPivot.GlobalPosition = CameraPivot.GlobalPosition.Lerp(
+            GlobalPosition = GlobalPosition.Lerp(
                 targetPosition, FollowLerpSpeed *(float)delta
             );
 
@@ -152,16 +156,15 @@ public partial class PlayerController : Node3D
             // Move the player
             TargetPlayer.Velocity = newVelocity;
             TargetPlayer.MoveAndSlide();
-
-            
         }
         else
-        {
-            // --- Free camera movement ---
-            cameraVelocity = direction * Speed;
+		{
+			// --- Free camera movement ---
+			cameraVelocity.X = direction.X * Speed;
+			cameraVelocity.Z = direction.Z * Speed;
 
             // Apply movement
-            CameraPivot.Translate(cameraVelocity * (float)delta);
+            GlobalTranslate(cameraVelocity * (float)delta);
         }
     }
 
