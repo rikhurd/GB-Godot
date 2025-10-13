@@ -6,7 +6,7 @@
 layer = 4
 follow_viewport_enabled = true
 
-[node name="GameUI" type="Control" parent="."]
+[node name="GameUI" type="Control" parent="." node_paths=PackedStringArray("EditGridButton")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,6 +14,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_jkspe")
+EditGridButton = NodePath("EditTileButton")
 
 [node name="EditTileButton" type="Button" parent="GameUI"]
 layout_mode = 0
@@ -21,7 +22,6 @@ offset_left = 20.0
 offset_top = 20.0
 offset_right = 147.0
 offset_bottom = 51.0
+toggle_mode = true
 action_mode = 0
 text = "Edit Tile Button"
-
-[connection signal="pressed" from="GameUI/EditTileButton" to="GameUI" method="OnEditButtonPressed"]

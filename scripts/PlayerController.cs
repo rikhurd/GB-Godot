@@ -168,15 +168,20 @@ public partial class PlayerController : Node3D
 		}
 	}
 	
-	public void EnableGridEdit()
+	public void EnableGridEdit(bool active)
     {
-        GD.Print("Grid editing enabled!");
-    }
+		GD.Print($"Edit mode active? {active}");
+	}
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
-	{
-	}
+    {
+		GameManager.Instance.RegisterPlayer(this);
+		GameManager.Instance.Connect(
+			signal: GameManager.SignalName.EditModeToggled,
+			callable: new Callable(this, nameof(EnableGridEdit))
+		);
+    }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)

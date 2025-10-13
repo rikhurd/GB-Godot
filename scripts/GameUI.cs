@@ -4,16 +4,13 @@ using System;
 public partial class GameUI : Control
 {
     [Export] private Button EditGridButton;
-
-    // Signal to broadcast button click
-    [Signal] public delegate void EditGridButtonPressedEventHandler();
     public override void _Ready()
     {
+        EditGridButton.Toggled += OnEditButtonToggled;
     }
-
-    private void OnEditButtonPressed()
-    {
-        GD.Print("Button clicked!");
-        EmitSignal("EditGridButtonPressedEventHandler");
+    // Button click is signaled in the editor Node properties
+    private void OnEditButtonToggled(bool active)
+    {   
+        GameManager.Instance.SetEditMode(active);
     }
 }
