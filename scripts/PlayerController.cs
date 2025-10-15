@@ -33,11 +33,10 @@ public partial class PlayerController : Node3D
 		// HandleMouseLook(@event);
 		// HandleMouseToggle(@event);
 
-		if (@event is InputEventMouseButton mouseButton && mouseButton.Pressed)
+		if (@event is InputEventMouseButton mouseButton)
 		{
-			if (Input.IsActionJustPressed(PlayerChoose))
+			if (Input.IsActionJustPressed(PlayerChoose) && GameManager.Instance.EditModeActive)
 			{
-				GD.Print("Mouse click position: ", mouseButton.Position);
 				CheckTileClick(mouseButton.Position);
 			}
 		}
@@ -169,7 +168,8 @@ public partial class PlayerController : Node3D
 	}
 	
 	public void EnableGridEdit(bool active)
-    {
+	{
+		// Signal call is not needed for the input handling but might be needed to setup things later for the edit mode so leave it here for later
 		GD.Print($"Edit mode active? {active}");
 	}
 

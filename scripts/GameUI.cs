@@ -10,7 +10,7 @@ public partial class GameUI : Control
     }
     // Button click is signaled in the editor Node properties
     private void OnEditButtonToggled(bool active)
-    {   
+    {
         GameManager.Instance.SetEditMode(active);
     }
 }
