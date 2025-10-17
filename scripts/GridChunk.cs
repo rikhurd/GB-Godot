@@ -89,8 +89,6 @@ public partial class GridChunk : Node3D
 
 		// Create the tile data array
 		ChunkTileData = tileData;
-
-		BuildMesh();
     }
 
 	private void ScheduleMeshBuild()
@@ -210,4 +208,18 @@ public partial class GridChunk : Node3D
 			return;
 		ChunkTileData[x, y] = tileData;
 	}
+
+	public void ModifyTile(TileData tileData)
+	{
+		int x = tileData.TileIndex.X;
+		int y = tileData.TileIndex.Y;
+
+		// For now just toggle the solid
+		tileData.Solid = !tileData.Solid;
+
+		ChunkTileData[x, y] = tileData;
+		GD.Print($"Tile: {tileData.TileIndex} Solid: {tileData.Solid}");
+		
+		ScheduleMeshBuild();
+    }
 }
