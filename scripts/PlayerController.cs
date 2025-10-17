@@ -35,21 +35,26 @@ public partial class PlayerController : Node3D
 
 		if (@event is InputEventMouseButton mouseButton)
 		{
+			// Maybe use switch and enum later
 			if (Input.IsActionJustPressed(PlayerChoose) && GameManager.Instance.EditModeActive)
 			{
-				CheckTileClick(mouseButton.Position);
+				var tile = GetTileUnderMouse(mouseButton.Position);
+				if(tile != null)
+                {
+                    tile.Value.chunk.ModifyTile(tile.Value.tileData);
+                }
 			}
 		}
 	}
 
 
-	private void CheckTileClick(Vector2 mousePos)
+	private (TileData tileData, GridChunk chunk)? GetTileUnderMouse(Vector2 mousePos)
 	{
-		if (CameraNode == null) return;
+		if (CameraNode == null) return null;
 
 		// Raycast from camera, only check collision layer 2
 		var hitPosAndChunk = RaycastChunk(mousePos, RayLength);
-		if (hitPosAndChunk == null) return;
+		if (hitPosAndChunk == null) return null;
 
 		Vector3 hitPos = hitPosAndChunk.Value.hitPosition;
 		GridChunk chunk = hitPosAndChunk.Value.chunk;
@@ -60,7 +65,8 @@ public partial class PlayerController : Node3D
 		Vector2I globalTilePos = new Vector2I(tileX, tileY);
 		TileData clickedTile = GridManager.Instance.GetGlobalTile(globalTilePos);
 
-		GD.Print($"Clicked Tile at {globalTilePos} in Chunk {chunk.ChunkID}: Solid={clickedTile.Solid}, Occupied={clickedTile.Occupied}");
+		// GD.Print($"Clicked Tile at {globalTilePos} in Chunk {chunk.ChunkID}: Solid={clickedTile.Solid}, Occupied={clickedTile.Occupied}");
+		return (clickedTile, chunk);
 	}
 	private (Vector3 hitPosition, GridChunk chunk)? RaycastChunk(Vector2 screenPos, float length)
 	{

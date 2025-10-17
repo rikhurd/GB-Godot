@@ -57,7 +57,7 @@ public partial class GridManager : Node
         if (chunkID.X < -LevelSize || chunkID.X > LevelSize ||
             chunkID.Y < -LevelSize || chunkID.Y > LevelSize)
         {
-    GD.Print("Out of bounds chunkID: ", chunkID);
+                GD.Print("Out of bounds chunkID: ", chunkID);
                 return;
         }
         // Instantiate chunk
@@ -72,6 +72,18 @@ public partial class GridManager : Node
         );
 
         TileData[,] tileData = new TileData[ChunkSize, ChunkSize];
+
+        for (int y = 0; y < ChunkSize; y++)
+        {
+            for (int x = 0; x < ChunkSize; x++)
+            {
+                tileData[y, x] = new TileData
+                {
+                    TileIndex = new Vector2I(y, x)
+                };
+            }
+        }
+
         chunk.InitializeChunk(chunkID, ChunkSize, TileSize, ChunkHeight, tileData);
         GridChunks[chunkID] = chunk;
 
