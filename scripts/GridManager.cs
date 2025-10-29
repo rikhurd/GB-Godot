@@ -31,22 +31,13 @@ public partial class GridManager : Node
     {
         Instance = this;
 
-        InitializeGridManager();
+        //InitializeGridManager();
     }
 
     // InitalizeGridManager or InitalizeLevel?
     public void InitializeGridManager()
     {
         SpawnChunk(new Vector2I(0, 0));
-        SpawnChunk(new Vector2I(0, 1));
-        SpawnChunk(new Vector2I(1, 0));
-        SpawnChunk(new Vector2I(1, 1));
-
-        SpawnChunk(new Vector2I(0, -1));
-        SpawnChunk(new Vector2I(-1, 0));
-        SpawnChunk(new Vector2I(-1, -1));
-        SpawnChunk(new Vector2I(1, -1));
-        SpawnChunk(new Vector2I(-1, 1));
     }
 
     public void SpawnChunk(Vector2I chunkID)
@@ -79,7 +70,10 @@ public partial class GridManager : Node
             {
                 tileData[y, x] = new TileData
                 {
-                    TileIndex = new Vector2I(y, x)
+                    TileIndex = new Vector2I(y, x),
+                    Solid = false,
+                    Occupied = false,
+                    Height = 0
                 };
             }
         }

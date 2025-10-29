@@ -15,10 +15,9 @@ public partial class GridChunk : Node3D
 	private ArrayMesh ArrayMesh = new ArrayMesh();
 	private int _chunkSize = 32;
 	private int _chunkHeight = 1;
-	private int _tileSize = 1;
+	private int _tileSize = 4;
 
 	[ExportGroup("Chunk Variables")]
-	[Export]
 	public Vector2I ChunkID { get; private set; }
 
 	[Export]
@@ -72,8 +71,23 @@ public partial class GridChunk : Node3D
 	private TileData[,] ChunkTileData;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
-	{
-	}
+    {
+        ChunkTileData = new TileData[ChunkSize, ChunkSize];
+
+        for (int y = 0; y < ChunkSize; y++)
+        {
+            for (int x = 0; x < ChunkSize; x++)
+            {
+                ChunkTileData[y, x] = new TileData
+                {
+                    TileIndex = new Vector2I(y, x),
+                    Solid = false,
+                    Occupied = false,
+                    Height = 0
+                };
+            }
+        }
+    }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
@@ -190,7 +204,7 @@ public partial class GridChunk : Node3D
 
     ChunkCollision.Position = new Vector3(
         (ChunkSize * TileSize) * 0.5f,
-        ChunkHeight * 0.5f,
+        ChunkHeight * 0.5f - 0.5f,
         (ChunkSize * TileSize) * 0.5f
     );
 }
@@ -217,9 +231,8 @@ public partial class GridChunk : Node3D
 		// For now just toggle the solid
 		tileData.Solid = !tileData.Solid;
 
-		ChunkTileData[x, y] = tileData;
-		GD.Print($"Tile: {tileData.TileIndex} Solid: {tileData.Solid}");
+		// ChunkTileData[x, y] = tileData;
 		
-		ScheduleMeshBuild();
+		//ScheduleMeshBuild();
     }
 }

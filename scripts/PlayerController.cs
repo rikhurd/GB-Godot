@@ -62,10 +62,10 @@ public partial class PlayerController : Node3D
 		int tileX = Mathf.FloorToInt(hitPos.X / GridManager.Instance.TileSize);
 		int tileY = Mathf.FloorToInt(hitPos.Z / GridManager.Instance.TileSize);
 
-		Vector2I globalTilePos = new Vector2I(tileX, tileY);
-		TileData clickedTile = GridManager.Instance.GetGlobalTile(globalTilePos);
+		Vector2I localTilePos = new Vector2I(tileX, tileY);
+		TileData clickedTile = chunk.GetLocalTile(localTilePos.X,localTilePos.Y);
 
-		// GD.Print($"Clicked Tile at {globalTilePos} in Chunk {chunk.ChunkID}: Solid={clickedTile.Solid}, Occupied={clickedTile.Occupied}");
+		GD.Print($"Clicked Tile at {localTilePos} Solid={clickedTile.Solid}, Occupied={clickedTile.Occupied}");
 		return (clickedTile, chunk);
 	}
 	private (Vector3 hitPosition, GridChunk chunk)? RaycastChunk(Vector2 screenPos, float length)
@@ -91,7 +91,8 @@ public partial class PlayerController : Node3D
 
 		if (chunk == null) return null;
 
-		Vector3 hitPosition = (Vector3)hitResult["position"];
+		Vector3 hitPosition = chunk.ToLocal((Vector3)hitResult["position"]);
+
 		return (hitPosition, chunk);
 	}
 

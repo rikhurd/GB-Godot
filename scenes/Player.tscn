@@ -7,5 +7,6 @@
 
 [node name="PlayerController" parent="." node_paths=PackedStringArray("TargetPlayer") instance=ExtResource("1_v6fml")]
 TargetPlayer = NodePath("../PlayerCharacter")
+AttachedToPlayer = false
 
 [node name="PlayerCharacter" parent="." instance=ExtResource("2_3li8b")]
