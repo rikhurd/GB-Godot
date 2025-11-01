@@ -1,6 +1,8 @@
-[gd_scene format=3 uid="uid://bxi0kwpkhn6px"]
+[gd_scene load_steps=2 format=3 uid="uid://bxi0kwpkhn6px"]
 
-[node name="GridEditToolDock" type="Control"]
+[ext_resource type="Script" uid="uid://bahu3k188pf78" path="res://addons/GridEditTool/GridEditToolUI.cs" id="1_pqnvg"]
+
+[node name="GridEditToolDock" type="Control" node_paths=PackedStringArray("GridEditMethods")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -10,6 +12,8 @@ offset_right = -1900.0
 offset_bottom = -1190.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_pqnvg")
+GridEditMethods = NodePath("VBoxContainer/EditMethods")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
@@ -17,6 +21,27 @@ offset_right = 165.0
 offset_bottom = 31.0
 alignment = 1
 
-[node name="Button" type="Button" parent="VBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer"]
 layout_mode = 2
+text = "Grid edit on/off toggle"
+
+[node name="ToolToggle" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+toggle_mode = true
 text = "Test button for dock"
+
+[node name="Label2" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Grid edit methods"
+
+[node name="EditMethods" type="ItemList" parent="VBoxContainer"]
+layout_mode = 2
+auto_width = true
+auto_height = true
+wraparound_items = false
+item_count = 4
+same_column_width = true
+item_0/text = "Walkable"
+item_1/text = "Spawn entity"
+item_2/text = "Spawn point player"
+item_3/text = "Spawn point enemy"

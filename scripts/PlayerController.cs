@@ -40,8 +40,10 @@ public partial class PlayerController : Node3D
 			{
 				var tile = GetTileUnderMouse(mouseButton.Position);
 				if(tile != null)
-                {
-                    tile.Value.chunk.ModifyTile(tile.Value.tileData);
+				{
+					TileData ClickedTile = tile.Value.tileData;
+					ClickedTile.IsWalkable = !ClickedTile.IsWalkable;
+                    tile.Value.chunk.ModifyTile(ClickedTile);
                 }
 			}
 		}
@@ -59,13 +61,12 @@ public partial class PlayerController : Node3D
 		Vector3 hitPos = hitPosAndChunk.Value.hitPosition;
 		GridChunk chunk = hitPosAndChunk.Value.chunk;
 
-		int tileX = Mathf.FloorToInt(hitPos.X / GridManager.Instance.TileSize);
-		int tileY = Mathf.FloorToInt(hitPos.Z / GridManager.Instance.TileSize);
+		int tileX = Mathf.FloorToInt(hitPos.X / chunk.TileSize);
+		int tileY = Mathf.FloorToInt(hitPos.Z / chunk.TileSize);
 
-		Vector2I localTilePos = new Vector2I(tileX, tileY);
-		TileData clickedTile = chunk.GetLocalTile(localTilePos.X,localTilePos.Y);
+		TileData clickedTile = chunk.GetLocalTile(tileX,tileY);
 
-		GD.Print($"Clicked Tile at {localTilePos} Solid={clickedTile.Solid}, Occupied={clickedTile.Occupied}");
+		GD.Print($"Clicked Tile at {tileX}{tileY} IsWalkable={clickedTile.IsWalkable}, Occupied={clickedTile.IsOccupied}");
 		return (clickedTile, chunk);
 	}
 	private (Vector3 hitPosition, GridChunk chunk)? RaycastChunk(Vector2 screenPos, float length)

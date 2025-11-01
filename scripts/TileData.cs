@@ -4,14 +4,14 @@ using System;
 public struct TileData
 {
 	public Vector2I TileIndex;
-    public bool Solid;
-    public bool Occupied;
+    public bool IsWalkable;
+    public bool IsOccupied;
     public float Height;
-	public TileData(Vector2I tileIndex, bool solid, bool occupied, float height)
+	public TileData(Vector2I tileIndex, bool walkable, bool occupied, float height)
     {
 		TileIndex = tileIndex;
-        Solid = solid;
-        Occupied = occupied;
+        IsWalkable = walkable;
+        IsOccupied = occupied;
         Height = height;
     }
 }

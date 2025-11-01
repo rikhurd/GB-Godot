@@ -71,8 +71,8 @@ public partial class GridManager : Node
                 tileData[y, x] = new TileData
                 {
                     TileIndex = new Vector2I(y, x),
-                    Solid = false,
-                    Occupied = false,
+                    IsWalkable = false,
+                    IsOccupied = false,
                     Height = 0
                 };
             }

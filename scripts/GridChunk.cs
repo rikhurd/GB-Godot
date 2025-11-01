@@ -67,6 +67,9 @@ public partial class GridChunk : Node3D
 			}
 		}
 	}
+
+	private TileData[,] EntryTiles;
+
 	// Create 2D array to hold tile data
 	private TileData[,] ChunkTileData;
 	// Called when the node enters the scene tree for the first time.
@@ -81,8 +84,8 @@ public partial class GridChunk : Node3D
                 ChunkTileData[y, x] = new TileData
                 {
                     TileIndex = new Vector2I(y, x),
-                    Solid = false,
-                    Occupied = false,
+                    IsWalkable = false,
+                    IsOccupied = false,
                     Height = 0
                 };
             }
@@ -228,10 +231,7 @@ public partial class GridChunk : Node3D
 		int x = tileData.TileIndex.X;
 		int y = tileData.TileIndex.Y;
 
-		// For now just toggle the solid
-		tileData.Solid = !tileData.Solid;
-
-		// ChunkTileData[x, y] = tileData;
+		ChunkTileData[x, y] = tileData;
 		
 		//ScheduleMeshBuild();
     }
