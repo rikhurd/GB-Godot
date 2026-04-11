@@ -78,7 +78,7 @@ public partial class GridManager : Node
             }
         }
 
-        chunk.InitializeChunk(chunkID, ChunkSize, TileSize, ChunkHeight, tileData);
+        //chunk.InitializeChunk(chunkID, ChunkSize, TileSize, ChunkHeight, tileData);
         GridChunks[chunkID] = chunk;
 
         return;

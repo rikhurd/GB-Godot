@@ -4,34 +4,27 @@ using System;
 [Tool]
 public partial class GridEditToolUI : Control
 {
-	[Export] private ItemList GridEditMethods;
+	[Export] public ItemList GridEditMethods;
+	[Export] public Button SelectGridButton;
+	[Export] public Button DeselectGridButton;
+	[Export] public Label SelectedGridName;
+	[Export] public Label GridDataLabel;
+	[Export] public BoxContainer GridEditContainer;
+	[Export] public BoxContainer GridDataContainer;
+	[Export] public Button CreateGridData;
+	[Export] public Button DeleteGridData;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		GridEditMethods.ItemSelected += OnItemSelected;
 	}
 
-	private void OnItemSelected(long index)
+	public void DisplayEditContainer()
 	{
-		string itemName = GridEditMethods.GetItemText((int)index);
-
-		switch (index)
-		{
-			case 0:
-				GD.Print($"Item0 selected — Name: {itemName}");
-				break;
-
-			case 1:
-				GD.Print($"Item1 selected — Name: {itemName}");
-				break;
-
-			case 2:
-				GD.Print($"Item2 selected — Name: {itemName}");
-				break;
-
-			default:
-				GD.Print("Unknown item selected.");
-				break;
-		}
+		GridEditContainer.Visible = true;
 	}
+	public void HideDisplayEditContainer()
+    {
+		GridEditContainer.Visible = false;
+    }
 }

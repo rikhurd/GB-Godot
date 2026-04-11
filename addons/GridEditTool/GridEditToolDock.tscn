@@ -2,46 +2,90 @@
 
 [ext_resource type="Script" uid="uid://bahu3k188pf78" path="res://addons/GridEditTool/GridEditToolUI.cs" id="1_pqnvg"]
 
-[node name="GridEditToolDock" type="Control" node_paths=PackedStringArray("GridEditMethods")]
+[node name="GridEditToolDock" type="Control" node_paths=PackedStringArray("GridEditMethods", "SelectGridButton", "DeselectGridButton", "SelectedGridName", "GridDataLabel", "GridEditContainer", "GridDataContainer", "CreateGridData", "DeleteGridData")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 10.0
+offset_top = 20.0
 offset_right = -1900.0
-offset_bottom = -1190.0
+offset_bottom = -1180.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_pqnvg")
-GridEditMethods = NodePath("VBoxContainer/EditMethods")
+GridEditMethods = NodePath("VBoxContainer/GridEditBox/EditMethods")
+SelectGridButton = NodePath("VBoxContainer/SelectGridButton")
+DeselectGridButton = NodePath("VBoxContainer/DeselectGridButton")
+SelectedGridName = NodePath("VBoxContainer/HBoxContainer/SelectedGridNameLabel")
+GridDataLabel = NodePath("VBoxContainer/GridDataBox/GridDataLabel")
+GridEditContainer = NodePath("VBoxContainer/GridEditBox")
+GridDataContainer = NodePath("VBoxContainer/GridDataBox")
+CreateGridData = NodePath("VBoxContainer/GridDataBox/CreateGridData")
+DeleteGridData = NodePath("VBoxContainer/GridDataBox/DeleteGridData")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
-offset_right = 165.0
-offset_bottom = 31.0
+offset_right = 162.0
+offset_bottom = 62.0
 alignment = 1
 
-[node name="Label" type="Label" parent="VBoxContainer"]
+[node name="Label3" type="Label" parent="VBoxContainer"]
 layout_mode = 2
-text = "Grid edit on/off toggle"
+text = "Select Grid to modify"
 
-[node name="ToolToggle" type="Button" parent="VBoxContainer"]
+[node name="SelectGridButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-toggle_mode = true
-text = "Test button for dock"
+text = "Select Grid"
 
-[node name="Label2" type="Label" parent="VBoxContainer"]
+[node name="DeselectGridButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Deselect Grid"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label4" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Grid selected:"
+
+[node name="SelectedGridNameLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "None"
+
+[node name="GridDataBox" type="BoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+vertical = true
+
+[node name="GridDataLabel" type="Label" parent="VBoxContainer/GridDataBox"]
+layout_mode = 2
+text = "None"
+
+[node name="CreateGridData" type="Button" parent="VBoxContainer/GridDataBox"]
+modulate = Color(0.5568628, 0.9372549, 0.5921569, 1)
+layout_mode = 2
+text = "Create Grid Data"
+
+[node name="DeleteGridData" type="Button" parent="VBoxContainer/GridDataBox"]
+modulate = Color(0.98039216, 0.4627451, 0.41568628, 1)
+layout_mode = 2
+text = "Delete Grid Data"
+
+[node name="GridEditBox" type="BoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+vertical = true
+
+[node name="Label2" type="Label" parent="VBoxContainer/GridEditBox"]
 layout_mode = 2
 text = "Grid edit methods"
 
-[node name="EditMethods" type="ItemList" parent="VBoxContainer"]
+[node name="EditMethods" type="ItemList" parent="VBoxContainer/GridEditBox"]
 layout_mode = 2
 auto_width = true
 auto_height = true
 wraparound_items = false
 item_count = 4
 same_column_width = true
-item_0/text = "Walkable"
+item_0/text = "Spawn object"
 item_1/text = "Spawn entity"
 item_2/text = "Spawn point player"
 item_3/text = "Spawn point enemy"
