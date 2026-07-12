@@ -228,9 +228,6 @@ public partial class GridChunk : Node3D
 		int x = tileData.TileIndex.X;
 		int y = tileData.TileIndex.Y;
 
-		// For now just toggle the solid
-		tileData.Solid = !tileData.Solid;
-
 		// ChunkTileData[x, y] = tileData;
 		
 		//ScheduleMeshBuild();
