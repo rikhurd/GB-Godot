@@ -66,7 +66,7 @@ public partial class PlayerController : Node3D
 
 		TileData clickedTile = chunk.GetLocalTile(tileX,tileY);
 
-		GD.Print($"Clicked Tile at {tileX}{tileY} IsWalkable={clickedTile.IsWalkable}, Occupied={clickedTile.IsOccupied}");
+		GD.Print($"Clicked Tile at [{tileX},{tileY}] IsWalkable={clickedTile.IsWalkable}, Occupied={clickedTile.IsOccupied}");
 		return (clickedTile, chunk);
 	}
 	private (Vector3 hitPosition, GridChunk chunk)? RaycastChunk(Vector2 screenPos, float length)

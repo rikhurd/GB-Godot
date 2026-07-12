@@ -13,6 +13,7 @@ public partial class GridEditToolUI : Control
 	[Export] public BoxContainer GridDataContainer;
 	[Export] public Button CreateGridData;
 	[Export] public Button DeleteGridData;
+	[Export] public Tree GridDataTree;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()

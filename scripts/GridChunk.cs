@@ -68,25 +68,11 @@ public partial class GridChunk : Node3D
 		}
 	}
 	// Create 2D array to hold tile data
-	private TileData[,] ChunkTileData;
+	public TileData[,] ChunkTileData;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
     {
-        ChunkTileData = new TileData[ChunkSize, ChunkSize];
-
-        for (int y = 0; y < ChunkSize; y++)
-        {
-            for (int x = 0; x < ChunkSize; x++)
-            {
-                ChunkTileData[y, x] = new TileData
-                {
-                    TileIndex = new Vector2I(y, x),
-                    Solid = false,
-                    Occupied = false,
-                    Height = 0
-                };
-            }
-        }
+        InitializeChunkTileData();
     }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -94,6 +80,7 @@ public partial class GridChunk : Node3D
 	{
 	}
 
+/*
 	public void InitializeChunk(Vector2I chunkID, int chunkSize, int tileSize, int chunkHeight, TileData[,] tileData)
 	{
 		ChunkID = chunkID;
@@ -104,6 +91,27 @@ public partial class GridChunk : Node3D
 		// Create the tile data array
 		ChunkTileData = tileData;
     }
+	*/
+	// Initializes Chunk Tile Data.
+	public void InitializeChunkTileData()
+	{
+		ChunkTileData = new TileData[ChunkSize, ChunkSize];
+
+        for (int y = 0; y < ChunkSize; y++)
+        {
+            for (int x = 0; x < ChunkSize; x++)
+            {
+                ChunkTileData[y, x] = new TileData
+                {
+                    TileIndex = new Vector2I(y, x),
+                    IsWalkable = false,
+                    IsOccupied = false,
+                    Height = 0
+                };
+				GD.Print($"TileData created: {ChunkTileData[y, x].TileIndex}");
+            }
+        }
+	}
 
 	private void ScheduleMeshBuild()
 	{

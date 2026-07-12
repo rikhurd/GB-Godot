@@ -5,30 +5,34 @@ using System;
 [Tool]
 public partial class GridEditTool : EditorPlugin
 {
-    private GridEditToolUI _dock;
-    private EditorSettings EditorSettings;
+    private EditorDock _dock;
+
+    private GridEditToolUI DockContent;
     private GridChunk SelectedGrid;
     private bool RegisterEditMethods = false;
+    private bool GridDataConnected = false;
     public override void _EnterTree()
     {
         // Initialization of the plugin goes here.
-        _dock = GD.Load<PackedScene>("res://addons/GridEditTool/GridEditToolDock.tscn").Instantiate<GridEditToolUI>();
-        AddControlToDock(DockSlot.LeftUr, _dock);
+        _dock = new EditorDock();
+        _dock.Title = "Grid Editor";
+        _dock.DefaultSlot = EditorDock.DockSlot.LeftUr;
+
+        DockContent = GD.Load<PackedScene>("res://addons/GridEditTool/GridEditToolDock.tscn").Instantiate<GridEditToolUI>();
+        _dock.AddChild(DockContent);
+
+        AddDock(_dock);
         SetInputEventForwardingAlwaysEnabled();
 
-        EditorSettings = EditorInterface.Singleton.GetEditorSettings();
-        //EditorInterface.Singleton.PopupNodeSelector();
-
-        _dock.SelectGridButton.ButtonDown += OnGridSelection;
-        _dock.DeselectGridButton.ButtonDown += DeselectGrid;
-        _dock.GridEditMethods.ItemSelected += OnItemSelected;
-        _dock.CreateGridData.ButtonDown += InitializeTileData;
+        DockContent.SelectGridButton.ButtonDown += OnGridSelection;
+        DockContent.DeselectGridButton.ButtonDown += DeselectGrid;
+        DockContent.GridEditMethods.ItemSelected += OnItemSelected;
     }
 
     public override void _ExitTree()
     {
         // Clean-up of the plugin goes here.
-        RemoveControlFromDocks(_dock);
+        RemoveDock(_dock);
         _dock.Free();
     }
 
@@ -97,10 +101,17 @@ public partial class GridEditTool : EditorPlugin
     }
     private void DeselectGrid()
     {
-        SelectedGrid = null;
-        RegisterEditMethods = false;
-        _dock.SelectedGridName.Text = "None";
-        _dock.HideDisplayEditContainer();
+        if (GridDataConnected)
+        {
+            DockContent.CreateGridData.ButtonDown -= SelectedGrid.InitializeChunkTileData;
+            GridDataConnected = false;
+            SelectedGrid = null;
+            RegisterEditMethods = false;
+            DockContent.SelectedGridName.Text = "None";
+            DockContent.HideDisplayEditContainer();
+
+            GD.Print($"GridChunk node deselected");
+        }
     }
     private void OnNodeSelected(NodePath nodePath)
     {
@@ -120,45 +131,27 @@ public partial class GridEditTool : EditorPlugin
 
                 SelectedGrid = gridChunk;
                 RegisterEditMethods = true;
-                _dock.SelectedGridName.Text = gridChunk.Name;
-                _dock.DisplayEditContainer();
-                if (gridChunk.LevelData == null || gridChunk.LevelData.ChunkTileData.Count == 0)
+                DockContent.SelectedGridName.Text = gridChunk.Name;
+                DockContent.DisplayEditContainer();
+                if (gridChunk.ChunkTileData == null || gridChunk.ChunkTileData.Length == 0)
                 {
-                    _dock.GridDataLabel.Text = "TileData is empty!";
-                    _dock.GridDataLabel.Modulate = new Color(1, 0.2f, 0.2f);
-                    _dock.GridDataContainer.Visible = true;
+                    DockContent.GridDataLabel.Text = "TileData is empty!";
+                    DockContent.GridDataLabel.Modulate = new Color(1, 0.2f, 0.2f);
+                    DockContent.GridDataContainer.Visible = true;
                 }
-            }
-        }
-    }
-
-    private void InitializeTileData()
-	{
-        if (SelectedGrid == null)
-            GD.Print("No Grid selected!");
-        
-        int ChunkSizeX = SelectedGrid.ChunkSize;
-        int ChunkSizeY = SelectedGrid.ChunkSize;
-
-        SelectedGrid.LevelData.ChunkTileData.Resize(ChunkSizeX * ChunkSizeY);
-
-        for (int y = 0; y < ChunkSizeY; y++)
-            for (int x = 0; x < ChunkSizeX; x++)
-            {
-                int index = y * ChunkSizeX * ChunkSizeY + x;
-                SelectedGrid.LevelData.ChunkTileData[index] = new TileData
+                if (GridDataConnected)
                 {
-                    TileIndex = new Vector2I(y, x),  // Note: Vector2I is x,y—adjust if needed
-                    IsWalkable = false,
-                    IsOccupied = false,
-                    Height = 0
-                };
+                    DockContent.CreateGridData.ButtonDown -= SelectedGrid.InitializeChunkTileData;
+                }
+                GridDataConnected = true;
+                DockContent.CreateGridData.ButtonDown += SelectedGrid.InitializeChunkTileData;
+            }
         }
     }
 
     private void OnItemSelected(long index)
 	{
-		string itemName = _dock.GridEditMethods.GetItemText((int)index);
+		string itemName = DockContent.GridEditMethods.GetItemText((int)index);
 
 		switch (index)
 		{

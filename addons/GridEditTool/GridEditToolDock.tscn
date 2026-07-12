@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://bxi0kwpkhn6px"]
+[gd_scene format=3 uid="uid://bxi0kwpkhn6px"]
 
 [ext_resource type="Script" uid="uid://bahu3k188pf78" path="res://addons/GridEditTool/GridEditToolUI.cs" id="1_pqnvg"]
 
-[node name="GridEditToolDock" type="Control" node_paths=PackedStringArray("GridEditMethods", "SelectGridButton", "DeselectGridButton", "SelectedGridName", "GridDataLabel", "GridEditContainer", "GridDataContainer", "CreateGridData", "DeleteGridData")]
+[node name="GridEditToolDock" type="Control" unique_id=1703898091 node_paths=PackedStringArray("GridEditMethods", "SelectGridButton", "DeselectGridButton", "SelectedGridName", "GridDataLabel", "GridEditContainer", "GridDataContainer", "CreateGridData", "DeleteGridData", "GridDataTree")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -22,63 +22,70 @@ GridEditContainer = NodePath("VBoxContainer/GridEditBox")
 GridDataContainer = NodePath("VBoxContainer/GridDataBox")
 CreateGridData = NodePath("VBoxContainer/GridDataBox/CreateGridData")
 DeleteGridData = NodePath("VBoxContainer/GridDataBox/DeleteGridData")
+GridDataTree = NodePath("VBoxContainer/GridDataBox/GridDataDisplayBox/GridDataTree")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1318941578]
 layout_mode = 0
 offset_right = 162.0
 offset_bottom = 62.0
 alignment = 1
 
-[node name="Label3" type="Label" parent="VBoxContainer"]
+[node name="Label3" type="Label" parent="VBoxContainer" unique_id=354720297]
 layout_mode = 2
 text = "Select Grid to modify"
 
-[node name="SelectGridButton" type="Button" parent="VBoxContainer"]
+[node name="SelectGridButton" type="Button" parent="VBoxContainer" unique_id=1404023647]
 layout_mode = 2
 text = "Select Grid"
 
-[node name="DeselectGridButton" type="Button" parent="VBoxContainer"]
+[node name="DeselectGridButton" type="Button" parent="VBoxContainer" unique_id=1873583759]
 layout_mode = 2
 text = "Deselect Grid"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=2131024681]
 layout_mode = 2
 
-[node name="Label4" type="Label" parent="VBoxContainer/HBoxContainer"]
+[node name="Label4" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=1957139914]
 layout_mode = 2
 text = "Grid selected:"
 
-[node name="SelectedGridNameLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
+[node name="SelectedGridNameLabel" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=1865816391]
 layout_mode = 2
 text = "None"
 
-[node name="GridDataBox" type="BoxContainer" parent="VBoxContainer"]
+[node name="GridDataBox" type="BoxContainer" parent="VBoxContainer" unique_id=33481480]
 layout_mode = 2
 vertical = true
 
-[node name="GridDataLabel" type="Label" parent="VBoxContainer/GridDataBox"]
+[node name="GridDataLabel" type="Label" parent="VBoxContainer/GridDataBox" unique_id=1039726080]
 layout_mode = 2
 text = "None"
 
-[node name="CreateGridData" type="Button" parent="VBoxContainer/GridDataBox"]
+[node name="CreateGridData" type="Button" parent="VBoxContainer/GridDataBox" unique_id=926007326]
 modulate = Color(0.5568628, 0.9372549, 0.5921569, 1)
 layout_mode = 2
 text = "Create Grid Data"
 
-[node name="DeleteGridData" type="Button" parent="VBoxContainer/GridDataBox"]
+[node name="DeleteGridData" type="Button" parent="VBoxContainer/GridDataBox" unique_id=1532547631]
 modulate = Color(0.98039216, 0.4627451, 0.41568628, 1)
 layout_mode = 2
 text = "Delete Grid Data"
 
-[node name="GridEditBox" type="BoxContainer" parent="VBoxContainer"]
+[node name="GridDataDisplayBox" type="BoxContainer" parent="VBoxContainer/GridDataBox" unique_id=2020435940]
+layout_mode = 2
+
+[node name="GridDataTree" type="Tree" parent="VBoxContainer/GridDataBox/GridDataDisplayBox" unique_id=537485551]
+layout_mode = 2
+
+[node name="GridEditBox" type="BoxContainer" parent="VBoxContainer" unique_id=285209434]
 layout_mode = 2
 vertical = true
 
-[node name="Label2" type="Label" parent="VBoxContainer/GridEditBox"]
+[node name="Label2" type="Label" parent="VBoxContainer/GridEditBox" unique_id=1522428117]
 layout_mode = 2
 text = "Grid edit methods"
 
-[node name="EditMethods" type="ItemList" parent="VBoxContainer/GridEditBox"]
+[node name="EditMethods" type="ItemList" parent="VBoxContainer/GridEditBox" unique_id=264401800]
 layout_mode = 2
 auto_width = true
 auto_height = true
