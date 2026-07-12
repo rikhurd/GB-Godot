@@ -5,9 +5,12 @@ using System;
 public partial class GridChunk : Node3D
 {
 	[ExportGroup("Chunk Nodes")]
-	[Export] private MeshInstance3D ChunkMeshInstance;
-	[Export] public ShaderMaterial ChunkMaterial;
-	[Export] public CollisionShape3D ChunkCollision;
+	[Export]
+	private MeshInstance3D ChunkMeshInstance;
+	[Export]
+	public ShaderMaterial ChunkMaterial;
+	[Export]
+	public CollisionShape3D ChunkCollision;
 	private BoxShape3D ChunkCollisionShape;
 	private ArrayMesh ArrayMesh = new ArrayMesh();
 	private int _chunkSize = 32;
@@ -17,7 +20,8 @@ public partial class GridChunk : Node3D
 	[ExportGroup("Chunk Variables")]
 	public Vector2I ChunkID { get; private set; }
 
-	[Export] public int ChunkSize
+	[Export]
+	public int ChunkSize
 	{
 		get => _chunkSize;
 		set
@@ -25,8 +29,6 @@ public partial class GridChunk : Node3D
 			if (_chunkSize != value)
 			{
 				_chunkSize = value;
-				LevelData.ChunkTileData.Clear();
-                //InitializeTileData();
 				ScheduleMeshBuild();
 				UpdateChunkCollision();
 				UpdateChunkShader();
@@ -34,7 +36,8 @@ public partial class GridChunk : Node3D
 		}
 	}
 
-	[Export] public int ChunkHeight
+	[Export]
+	public int ChunkHeight
 	{
 		get => _chunkHeight;
 		set
@@ -49,7 +52,8 @@ public partial class GridChunk : Node3D
 		}
 	}
 
-	[Export] public int TileSize
+	[Export]
+	public int TileSize
 	{
 		get => _tileSize;
 		set
@@ -63,45 +67,43 @@ public partial class GridChunk : Node3D
 			}
 		}
 	}
-
-	public LevelData LevelData;
-
+	// Create 2D array to hold tile data
+	private TileData[,] ChunkTileData;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
     {
-		ScheduleMeshBuild();
-		UpdateChunkCollision();
-		UpdateChunkShader();
+        ChunkTileData = new TileData[ChunkSize, ChunkSize];
+
+        for (int y = 0; y < ChunkSize; y++)
+        {
+            for (int x = 0; x < ChunkSize; x++)
+            {
+                ChunkTileData[y, x] = new TileData
+                {
+                    TileIndex = new Vector2I(y, x),
+                    Solid = false,
+                    Occupied = false,
+                    Height = 0
+                };
+            }
+        }
     }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
 	}
-	
-	/*
-	private void InitializeTileData()
+
+	public void InitializeChunk(Vector2I chunkID, int chunkSize, int tileSize, int chunkHeight, TileData[,] tileData)
 	{
-		if (ChunkTileData.Count > 0) return;  // Already initialized
+		ChunkID = chunkID;
+		ChunkSize = chunkSize;
+		TileSize = tileSize;
+		ChunkHeight = chunkHeight;
 
-        ChunkTileData.Resize(ChunkSize * ChunkSize);  // Pre-size for efficiency
-
-        for (int y = 0; y < ChunkSize; y++)
-        {
-            for (int x = 0; x < ChunkSize; x++)
-            {
-                int index = y * ChunkSize + x;
-                ChunkTileData[index] = new TileData
-                {
-                    TileIndex = new Vector2I(y, x),  // Note: Vector2I is x,y—adjust if needed
-                    IsWalkable = false,
-                    IsOccupied = false,
-                    Height = 0
-                };
-            }
-        }
+		// Create the tile data array
+		ChunkTileData = tileData;
     }
-	*/
 
 	private void ScheduleMeshBuild()
 	{
@@ -185,42 +187,40 @@ public partial class GridChunk : Node3D
 		// ChunkMaterial.SetShaderParameter("cell_size", CellSize);
 	}
 	private void UpdateChunkCollision()
-	{
-		if (ChunkCollision == null) return;
+{
+    if (ChunkCollision == null) return;
 
-		if (ChunkCollision.Shape == null || ChunkCollision.Shape is not BoxShape3D)
-		{
-			ChunkCollisionShape = new BoxShape3D();
-			ChunkCollision.Shape = ChunkCollisionShape;
-		}
-		else
-		{
-			ChunkCollisionShape = (BoxShape3D)ChunkCollision.Shape;
-		}
+    if (ChunkCollision.Shape == null || ChunkCollision.Shape is not BoxShape3D)
+    {
+        ChunkCollisionShape = new BoxShape3D();
+        ChunkCollision.Shape = ChunkCollisionShape;
+    }
+    else
+    {
+        ChunkCollisionShape = (BoxShape3D)ChunkCollision.Shape;
+    }
 
-		ChunkCollisionShape.Size = new Vector3(ChunkSize * TileSize, ChunkHeight, ChunkSize * TileSize);
+    ChunkCollisionShape.Size = new Vector3(ChunkSize * TileSize, ChunkHeight, ChunkSize * TileSize);
 
-		ChunkCollision.Position = new Vector3(
-			(ChunkSize * TileSize) * 0.5f,
-			ChunkHeight * 0.5f - 0.5f,
-			(ChunkSize * TileSize) * 0.5f
-		);
-	}
+    ChunkCollision.Position = new Vector3(
+        (ChunkSize * TileSize) * 0.5f,
+        ChunkHeight * 0.5f - 0.5f,
+        (ChunkSize * TileSize) * 0.5f
+    );
+}
 
 	public TileData GetLocalTile(int x, int y)
 	{
 		if (x < 0 || x >= ChunkSize || y < 0 || y >= ChunkSize)
 			return default;
-		int index = y * ChunkSize + x;
-        return LevelData.ChunkTileData[index];
+		return ChunkTileData[x, y];
 	}
 
 	public void SetLocalTile(int x, int y, TileData tileData)
 	{
 		if (x < 0 || x >= ChunkSize || y < 0 || y >= ChunkSize)
 			return;
-		int index = y * ChunkSize + x;
-        LevelData.ChunkTileData[index] = tileData;
+		ChunkTileData[x, y] = tileData;
 	}
 
 	public void ModifyTile(TileData tileData)
@@ -228,10 +228,8 @@ public partial class GridChunk : Node3D
 		int x = tileData.TileIndex.X;
 		int y = tileData.TileIndex.Y;
 
-		if (x < 0 || x >= ChunkSize || y < 0 || y >= ChunkSize)
-            return;
-
-        int index = y * ChunkSize + x;
-        LevelData.ChunkTileData[index] = tileData;
+		// ChunkTileData[x, y] = tileData;
+		
+		//ScheduleMeshBuild();
     }
 }

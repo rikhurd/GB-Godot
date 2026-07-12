@@ -18,22 +18,21 @@ sky = SubResource("Sky_qbsmt")
 tonemap_mode = 2
 glow_enabled = true
 
-[node name="Game" type="Node3D" unique_id=969400134]
+[node name="Game" type="Node3D" unique_id=85628645]
 script = ExtResource("1_cpr0p")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1478833416]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=554893866]
 environment = SubResource("Environment_cpr0p")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=231848524]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1636786673]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 7.25, 0)
 shadow_enabled = true
 
-[node name="GameUI" parent="." unique_id=770342684 instance=ExtResource("2_qbsmt")]
+[node name="GameUI" parent="." unique_id=994779256 instance=ExtResource("2_qbsmt")]
 
-[node name="Player" parent="." unique_id=737811875 instance=ExtResource("1_ibkli")]
+[node name="Player" parent="." unique_id=1286072298 instance=ExtResource("1_ibkli")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
 
-[node name="Chunk" parent="." unique_id=801139009 instance=ExtResource("4_78awf")]
-ChunkMaterial = null
-ChunkHeight = 10
+[node name="Chunk" parent="." unique_id=988421160 instance=ExtResource("4_78awf")]
+ChunkHeight = 1
 TileSize = 4

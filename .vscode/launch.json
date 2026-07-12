@@ -9,7 +9,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "C:/Projects/Godot/Godot_v4.5-stable_mono_win64/Godot_v4.5-stable_mono_win64_console.exe",
+            "program": "C:/Users/rikuh/Documents/Godot/Godot_v4.7-stable_mono_win64/Godot_v4.7-stable_mono_win64_console.exe",
             "args": [],
             "cwd": "${workspaceFolder}",
             "stopAtEntry": false,
