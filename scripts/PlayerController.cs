@@ -43,7 +43,7 @@ public partial class PlayerController : Node3D
 				{
 					TileData ClickedTile = tile.Value.tileData;
 					ClickedTile.IsWalkable = !ClickedTile.IsWalkable;
-                    tile.Value.chunk.ModifyTile(ClickedTile);
+                    tile.Value.chunk.GridChunkData.ModifyTile(ClickedTile);
                 }
 			}
 		}
@@ -64,7 +64,7 @@ public partial class PlayerController : Node3D
 		int tileX = Mathf.FloorToInt(hitPos.X / chunk.TileSize);
 		int tileY = Mathf.FloorToInt(hitPos.Z / chunk.TileSize);
 
-		TileData clickedTile = chunk.GetLocalTile(tileX,tileY);
+		TileData clickedTile = chunk.GridChunkData.GetLocalTile(tileX,tileY);
 
 		GD.Print($"Clicked Tile at [{tileX},{tileY}] IsWalkable={clickedTile.IsWalkable}, Occupied={clickedTile.IsOccupied}");
 		return (clickedTile, chunk);

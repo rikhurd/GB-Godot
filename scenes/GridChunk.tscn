@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=4 uid="uid://b3ghhv6mktkvo"]
+[gd_scene format=4 uid="uid://b3ghhv6mktkvo"]
 
 [ext_resource type="Script" uid="uid://rb03vyghk5pm" path="res://scripts/GridChunk.cs" id="1_22adb"]
 [ext_resource type="Material" uid="uid://c3t28jbckblwd" path="res://assets/materials/GridChunkMaterial.tres" id="2_7n21o"]
@@ -19,7 +19,7 @@ _surfaces = [{
 [sub_resource type="BoxShape3D" id="BoxShape3D_7n21o"]
 size = Vector3(24, 0, 24)
 
-[node name="Chunk" type="Node3D" node_paths=PackedStringArray("ChunkMeshInstance", "ChunkCollision")]
+[node name="Chunk" type="Node3D" unique_id=485441229 node_paths=PackedStringArray("ChunkMeshInstance", "ChunkCollision")]
 script = ExtResource("1_22adb")
 ChunkMeshInstance = NodePath("ChunkMeshInstance")
 ChunkMaterial = ExtResource("2_7n21o")
@@ -28,15 +28,15 @@ ChunkSize = 8
 ChunkHeight = 0
 TileSize = 3
 
-[node name="ChunkMeshInstance" type="MeshInstance3D" parent="."]
+[node name="ChunkMeshInstance" type="MeshInstance3D" parent="." unique_id=1963238670]
 layers = 2
 material_override = ExtResource("2_7n21o")
 mesh = SubResource("ArrayMesh_22adb")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=853166381]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 collision_layer = 3
 
-[node name="ChunkCollision" type="CollisionShape3D" parent="StaticBody3D"]
+[node name="ChunkCollision" type="CollisionShape3D" parent="StaticBody3D" unique_id=345400775]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, -0.5, 12)
 shape = SubResource("BoxShape3D_7n21o")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://qs0xsjjb5j16"]
+[gd_scene format=3 uid="uid://qs0xsjjb5j16"]
 
 [ext_resource type="Script" uid="uid://bh5vr22u6pg26" path="res://scripts/Player.cs" id="1_p0vlq"]
 
@@ -11,17 +11,17 @@ height = 0.5
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5q5h1"]
 
-[node name="PlayerCharacter" type="CharacterBody3D"]
+[node name="PlayerCharacter" type="CharacterBody3D" unique_id=1984322398]
 script = ExtResource("1_p0vlq")
 
-[node name="VisualBody" type="MeshInstance3D" parent="."]
+[node name="VisualBody" type="MeshInstance3D" parent="." unique_id=1143261604]
 layers = 3
 mesh = SubResource("CapsuleMesh_p0vlq")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="VisualBody"]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="VisualBody" unique_id=1347138457]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.5, -0.5)
 mesh = SubResource("CylinderMesh_p0vlq")
 skeleton = NodePath("../..")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1143482450]
 shape = SubResource("CapsuleShape3D_5q5h1")

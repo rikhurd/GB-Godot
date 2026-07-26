@@ -1,12 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://by2j56dy07kqd"]
+[gd_scene format=3 uid="uid://by2j56dy07kqd"]
 
 [ext_resource type="PackedScene" uid="uid://c61vmpknajur8" path="res://scenes/PlayerController.tscn" id="1_v6fml"]
 [ext_resource type="PackedScene" uid="uid://qs0xsjjb5j16" path="res://scenes/PlayerCharacter.tscn" id="2_3li8b"]
 
-[node name="Player" type="Node3D"]
+[node name="Player" type="Node3D" unique_id=504052813]
 
-[node name="PlayerController" parent="." node_paths=PackedStringArray("TargetPlayer") instance=ExtResource("1_v6fml")]
+[node name="PlayerController" parent="." unique_id=718771983 node_paths=PackedStringArray("TargetPlayer") instance=ExtResource("1_v6fml")]
 TargetPlayer = NodePath("../PlayerCharacter")
 AttachedToPlayer = false
 
-[node name="PlayerCharacter" parent="." instance=ExtResource("2_3li8b")]
+[node name="PlayerCharacter" parent="." unique_id=1154434487 instance=ExtResource("2_3li8b")]

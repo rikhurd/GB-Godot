@@ -1,12 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://d1dtsml0g0lj3"]
+[gd_scene format=3 uid="uid://d1dtsml0g0lj3"]
 
 [ext_resource type="Script" uid="uid://ckqlduk7d1ie" path="res://scripts/GameUI.cs" id="1_jkspe"]
 
-[node name="CanvasLayer" type="CanvasLayer"]
+[node name="CanvasLayer" type="CanvasLayer" unique_id=1908135826]
 layer = 4
 follow_viewport_enabled = true
 
-[node name="GameUI" type="Control" parent="." node_paths=PackedStringArray("EditGridButton")]
+[node name="GameUI" type="Control" parent="." unique_id=1824621204 node_paths=PackedStringArray("EditGridButton")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -16,7 +16,7 @@ grow_vertical = 2
 script = ExtResource("1_jkspe")
 EditGridButton = NodePath("EditTileButton")
 
-[node name="EditTileButton" type="Button" parent="GameUI"]
+[node name="EditTileButton" type="Button" parent="GameUI" unique_id=1661369341]
 layout_mode = 0
 offset_left = 20.0
 offset_top = 20.0

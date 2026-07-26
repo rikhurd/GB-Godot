@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://c61vmpknajur8"]
+[gd_scene format=3 uid="uid://c61vmpknajur8"]
 
 [ext_resource type="Script" uid="uid://cpp6oap2bgjfd" path="res://scripts/PlayerController.cs" id="1_lp7lw"]
 
-[node name="PlayerController" type="Node3D" node_paths=PackedStringArray("CameraNode")]
+[node name="PlayerController" type="Node3D" unique_id=971992211 node_paths=PackedStringArray("CameraNode")]
 script = ExtResource("1_lp7lw")
 Speed = 40.0
 MoveLeft = "MoveLeft"
@@ -13,9 +13,9 @@ CameraNode = NodePath("SpringArm3D/PlayerCamera")
 CameraRotateSpeed = 120.0
 FollowLerpSpeed = 7.0
 
-[node name="SpringArm3D" type="SpringArm3D" parent="."]
+[node name="SpringArm3D" type="SpringArm3D" parent="." unique_id=446659606]
 transform = Transform3D(1, 0, 0, 0, 0.49999994, 0.8660254, 0, -0.8660254, 0.49999994, 0, 0, 0)
 collision_mask = 0
 spring_length = 16.0
 
-[node name="PlayerCamera" type="Camera3D" parent="SpringArm3D"]
+[node name="PlayerCamera" type="Camera3D" parent="SpringArm3D" unique_id=1691458067]

@@ -16,7 +16,7 @@ public partial class GridEditTool : EditorPlugin
         // Initialization of the plugin goes here.
         _dock = new EditorDock();
         _dock.Title = "Grid Editor";
-        _dock.DefaultSlot = EditorDock.DockSlot.LeftUr;
+        _dock.DefaultSlot = EditorDock.DockSlot.LeftUl;
 
         DockContent = GD.Load<PackedScene>("res://addons/GridEditTool/GridEditToolDock.tscn").Instantiate<GridEditToolUI>();
         _dock.AddChild(DockContent);
@@ -27,6 +27,8 @@ public partial class GridEditTool : EditorPlugin
         DockContent.SelectGridButton.ButtonDown += OnGridSelection;
         DockContent.DeselectGridButton.ButtonDown += DeselectGrid;
         DockContent.GridEditMethods.ItemSelected += OnItemSelected;
+        DockContent.CreateGridData.ButtonDown += CreateGridDataForSelected;
+        DockContent.ToggleTileStateOverlay.Toggled += OnToggleTileStateOverlay;
     }
 
     public override void _ExitTree()
@@ -57,7 +59,7 @@ public partial class GridEditTool : EditorPlugin
             int tileY = Mathf.FloorToInt(hitPos.Z / SelectedGrid.TileSize);
 
             //TileData clickedTile = GetChunkLocalTile(chunk, tileX, tileY);
-            TileData clickedTile = SelectedGrid.GetLocalTile(tileX, tileY);
+            TileData clickedTile = SelectedGrid.GridChunkData.GetLocalTile(tileX, tileY);
 
             GD.Print($"Clicked Tile at [{tileX},{tileY}] IsWalkable={clickedTile.IsWalkable}, Occupied={clickedTile.IsOccupied}");
 
@@ -103,7 +105,6 @@ public partial class GridEditTool : EditorPlugin
     {
         if (GridDataConnected)
         {
-            DockContent.CreateGridData.ButtonDown -= SelectedGrid.InitializeChunkTileData;
             GridDataConnected = false;
             SelectedGrid = null;
             RegisterEditMethods = false;
@@ -128,23 +129,24 @@ public partial class GridEditTool : EditorPlugin
             if (selectedNode is GridChunk gridChunk)
             {
                 GD.Print($"Succesfully selected GridChunk node: {selectedNode.Name} at path {nodePath}");
+                GD.Print($"GridChunk.Data path: {gridChunk.GridChunkData?.ResourcePath}");
 
                 SelectedGrid = gridChunk;
                 RegisterEditMethods = true;
                 DockContent.SelectedGridName.Text = gridChunk.Name;
                 DockContent.DisplayEditContainer();
-                if (gridChunk.ChunkTileData == null || gridChunk.ChunkTileData.Length == 0)
+
+                if (gridChunk.GridChunkData.ChunkTileData == null || gridChunk.GridChunkData.ChunkTileData.Count == 0)
                 {
+                    DockContent.GridDataLabel.Visible = true;
                     DockContent.GridDataLabel.Text = "TileData is empty!";
                     DockContent.GridDataLabel.Modulate = new Color(1, 0.2f, 0.2f);
                     DockContent.GridDataContainer.Visible = true;
-                }
-                if (GridDataConnected)
+                } else
                 {
-                    DockContent.CreateGridData.ButtonDown -= SelectedGrid.InitializeChunkTileData;
+                    DockContent.GridDataLabel.Visible = false;
                 }
-                GridDataConnected = true;
-                DockContent.CreateGridData.ButtonDown += SelectedGrid.InitializeChunkTileData;
+                SelectedGrid.UpdateTileStateTexture();
             }
         }
     }
@@ -176,5 +178,48 @@ public partial class GridEditTool : EditorPlugin
 				break;
 		}
 	}
+
+    private void CreateGridDataForSelected()
+    {
+        if (SelectedGrid?.GridChunkData == null)
+        {
+            GD.PrintErr("Assign a GridChunkData resource in the Inspector first.");
+            return;
+        }
+
+        SelectedGrid.SyncDataChunkSize();
+
+        if (SelectedGrid.GridChunkData.ChunkTileData == null || SelectedGrid.GridChunkData.ChunkTileData.Count == 0)
+        {
+            GridChunkData filled = GridChunkData.InitializeChunkTileData(SelectedGrid.GridChunkData.ChunkSize);
+            SelectedGrid.GridChunkData.ChunkTileData = filled.ChunkTileData;
+
+            Error err = ResourceSaver.Save(SelectedGrid.GridChunkData);
+            if (err != Error.Ok)
+            {
+                GD.PrintErr($"Failed to save grid data: {err}");
+                return;
+            }
+
+            GD.Print($"Populated and saved tile data to {SelectedGrid.GridChunkData.ResourcePath}");
+        }
+        EditorInterface.Singleton.MarkSceneAsUnsaved();
+    }
+
+    private void SaveGridData()
+    {
+        if (SelectedGrid?.GridChunkData == null) return;
+
+        Error err = ResourceSaver.Save(SelectedGrid.GridChunkData);
+        if (err != Error.Ok)
+        {
+            GD.PrintErr($"Failed to save grid data: {err}");
+        }
+        SelectedGrid.UpdateTileStateTexture();
+    }
+    private void OnToggleTileStateOverlay(bool enabled)
+    {
+        SelectedGrid?.ChunkMaterial?.SetShaderParameter("show_tile_state", enabled);
+    }
 }
 #endif

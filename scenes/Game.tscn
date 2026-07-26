@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://by2j56dy07kqd" path="res://scenes/Player.tscn" id="1_ibkli"]
 [ext_resource type="PackedScene" uid="uid://d1dtsml0g0lj3" path="res://scenes/GameUI.tscn" id="2_qbsmt"]
 [ext_resource type="PackedScene" uid="uid://b3ghhv6mktkvo" path="res://scenes/GridChunk.tscn" id="4_78awf"]
+[ext_resource type="Resource" uid="uid://bvweoc4hpar4r" path="res://resources/test_data.tres" id="5_s0nni"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ibkli"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -36,3 +37,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
 [node name="Chunk" parent="." unique_id=988421160 instance=ExtResource("4_78awf")]
 ChunkHeight = 1
 TileSize = 4
+GridChunkData = ExtResource("5_s0nni")

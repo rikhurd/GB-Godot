@@ -110,7 +110,7 @@ public partial class GridManager : Node
             Mod(globalTilePos.Y, ChunkSize)
         );
 
-        return chunk.GetLocalTile(local.X, local.Y);
+        return chunk.GridChunkData.GetLocalTile(local.X, local.Y);
     }
 
     public void SetGlobalTile(Vector2I globalTilePos, TileData tile)
@@ -130,7 +130,7 @@ public partial class GridManager : Node
             Mod(globalTilePos.Y, ChunkSize)
         );
 
-        chunk.SetLocalTile(local.X, local.Y, tile);
+        chunk.GridChunkData.SetLocalTile(local.X, local.Y, tile);
     }
 
     // Integer division that always rounds DOWN
