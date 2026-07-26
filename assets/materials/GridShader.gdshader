@@ -31,7 +31,6 @@ uniform bool show_tile_state = true;
 uniform vec4 walkable_color : source_color = vec4(0.15, 0.7, 0.2, 1.0);
 uniform vec4 blocked_color : source_color = vec4(0.7, 0.15, 0.15, 1.0);
 uniform vec4 occupied_color : source_color = vec4(0.9, 0.75, 0.1, 1.0);
-uniform float tile_state_blend = 0.6;
 
 vec4 square_rounded(vec2 uv, float width, float radius) {
     uv = uv * 2.0 - 1.0;
@@ -105,12 +104,7 @@ void fragment() {
     } else {
         vec4 square_result = square_rounded(adjusted_uv, 1.0 - _gutter_size, 0.9999 - cell_roundedness);
         if (square_result.a <= 0.0) {
-            vec3 base_color = cell_color.rgb;
-            if (show_tile_state) {
-                vec3 state_color = get_tile_state_color(cell_coord);
-                base_color = mix(base_color, state_color, tile_state_blend);
-            }
-            ALBEDO = base_color;
+            ALBEDO = show_tile_state ? get_tile_state_color(cell_coord) : cell_color.rgb;
         } else {
             ALBEDO = mixed_gutter_color;
         }

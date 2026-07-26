@@ -11,6 +11,14 @@ public partial class GridEditTool : EditorPlugin
     private GridChunk SelectedGrid;
     private bool RegisterEditMethods = false;
     private bool GridDataConnected = false;
+
+    private enum EditMode
+    {
+        ToggleWalkable,
+        ToggleOccupied
+    }
+
+    private EditMode CurrentEditMode = EditMode.ToggleWalkable;
     public override void _EnterTree()
     {
         // Initialization of the plugin goes here.
@@ -29,6 +37,7 @@ public partial class GridEditTool : EditorPlugin
         DockContent.GridEditMethods.ItemSelected += OnItemSelected;
         DockContent.CreateGridData.ButtonDown += CreateGridDataForSelected;
         DockContent.ToggleTileStateOverlay.Toggled += OnToggleTileStateOverlay;
+        DockContent.SaveGridData.ButtonDown += SaveGridData;
     }
 
     public override void _ExitTree()
@@ -40,7 +49,7 @@ public partial class GridEditTool : EditorPlugin
 
     public override int _Forward3DGuiInput(Camera3D viewportCamera, InputEvent @event)
     {
-        if (!RegisterEditMethods)
+        if (RegisterEditMethods == false)
             return (int)AfterGuiInput.Pass;
 
         if (@event is InputEventMouseButton mouseEvent &&
@@ -61,7 +70,30 @@ public partial class GridEditTool : EditorPlugin
             //TileData clickedTile = GetChunkLocalTile(chunk, tileX, tileY);
             TileData clickedTile = SelectedGrid.GridChunkData.GetLocalTile(tileX, tileY);
 
-            GD.Print($"Clicked Tile at [{tileX},{tileY}] IsWalkable={clickedTile.IsWalkable}, Occupied={clickedTile.IsOccupied}");
+            GD.Print($"hitPos: {hitPos}, computed tileX={tileX}, tileY={tileY}");
+
+            if (clickedTile == null)
+            {
+                //This is caused by clicking on the very edge of the grid node
+                GD.Print($"No tile at [{tileX},{tileY}] - out of range");
+                return (int)AfterGuiInput.Pass;
+            }
+
+            switch (CurrentEditMode)
+            {
+                case EditMode.ToggleWalkable:
+                    clickedTile.IsWalkable = !clickedTile.IsWalkable;
+                    break;
+                case EditMode.ToggleOccupied:
+                    clickedTile.IsOccupied = !clickedTile.IsOccupied;
+                    break;
+            }
+
+            SelectedGrid.GridChunkData.SetLocalTile(tileX, tileY, clickedTile);
+            SaveGridData();
+            SelectedGrid.UpdateTileStateTexture();
+
+            GD.Print($"Edited Tile at [{tileX},{tileY}] IsWalkable={clickedTile.IsWalkable}, Occupied={clickedTile.IsOccupied}");
 
             return (int)AfterGuiInput.Stop; // consume the click
         }
@@ -158,6 +190,7 @@ public partial class GridEditTool : EditorPlugin
 		switch (index)
 		{
 			case 0:
+                CurrentEditMode = EditMode.ToggleWalkable;
 				GD.Print($"Item0 selected — Name: {itemName}");
 				break;
 
@@ -189,8 +222,8 @@ public partial class GridEditTool : EditorPlugin
 
         SelectedGrid.SyncDataChunkSize();
 
-        if (SelectedGrid.GridChunkData.ChunkTileData == null || SelectedGrid.GridChunkData.ChunkTileData.Count == 0)
-        {
+        // if (SelectedGrid.GridChunkData.ChunkTileData == null || SelectedGrid.GridChunkData.ChunkTileData.Count == 0)
+        
             GridChunkData filled = GridChunkData.InitializeChunkTileData(SelectedGrid.GridChunkData.ChunkSize);
             SelectedGrid.GridChunkData.ChunkTileData = filled.ChunkTileData;
 
@@ -202,7 +235,7 @@ public partial class GridEditTool : EditorPlugin
             }
 
             GD.Print($"Populated and saved tile data to {SelectedGrid.GridChunkData.ResourcePath}");
-        }
+        
         EditorInterface.Singleton.MarkSceneAsUnsaved();
     }
 

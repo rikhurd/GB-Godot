@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bahu3k188pf78" path="res://addons/GridEditTool/GridEditToolUI.cs" id="1_pqnvg"]
 
-[node name="GridEditToolDock" type="VBoxContainer" unique_id=1026958256 node_paths=PackedStringArray("GridEditMethods", "SelectGridButton", "DeselectGridButton", "SelectedGridName", "GridDataLabel", "GridEditContainer", "GridDataContainer", "CreateGridData", "DeleteGridData", "ToggleTileStateOverlay")]
+[node name="GridEditToolDock" type="VBoxContainer" unique_id=1026958256 node_paths=PackedStringArray("GridEditMethods", "SelectGridButton", "DeselectGridButton", "SelectedGridName", "GridDataLabel", "GridEditContainer", "GridDataContainer", "CreateGridData", "DeleteGridData", "SaveGridData", "ToggleTileStateOverlay")]
 offset_right = 165.0
 offset_bottom = 412.0
 grow_horizontal = 2
@@ -19,6 +19,7 @@ GridEditContainer = NodePath("GridEditContainer")
 GridDataContainer = NodePath("GridEditContainer/GridDataContainer")
 CreateGridData = NodePath("GridEditContainer/GridDataContainer/CreateGridData")
 DeleteGridData = NodePath("GridEditContainer/GridDataContainer/DeleteGridData")
+SaveGridData = NodePath("GridEditContainer/SaveGridData")
 ToggleTileStateOverlay = NodePath("GridEditContainer/HBoxContainer2/ToggleTileStateOverlay")
 
 [node name="Label3" type="Label" parent="." unique_id=354720297]
@@ -75,6 +76,11 @@ layout_mode = 2
 action_mode = 0
 text = "Toggle  Overlay"
 
+[node name="SaveGridData" type="Button" parent="GridEditContainer" unique_id=1330000645]
+modulate = Color(0.5568628, 0.9372549, 0.5921569, 1)
+layout_mode = 2
+text = "Save Grid Data"
+
 [node name="GridToolsContainer" type="BoxContainer" parent="GridEditContainer" unique_id=285209434]
 layout_mode = 2
 vertical = true
@@ -90,7 +96,7 @@ auto_height = true
 wraparound_items = false
 item_count = 4
 same_column_width = true
-item_0/text = "Spawn object"
+item_0/text = "Toggle walkable"
 item_1/text = "Spawn entity"
 item_2/text = "Spawn point player"
 item_3/text = "Spawn point enemy"

@@ -35,6 +35,7 @@ shadow_enabled = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
 
 [node name="Chunk" parent="." unique_id=988421160 instance=ExtResource("4_78awf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.21698093, 0.55734205, 0.18636656)
 ChunkHeight = 1
 TileSize = 4
 GridChunkData = ExtResource("5_s0nni")
