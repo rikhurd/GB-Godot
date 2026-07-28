@@ -207,7 +207,7 @@ public partial class GridChunk : Node3D
 		if (GridChunkData == null || GridChunkData.ChunkTileData == null || GridChunkData.ChunkTileData.Count == 0 || ChunkMaterial == null)
 			return;
 
-		Image image = Image.CreateEmpty(ChunkSize, ChunkSize, false, Image.Format.Rgf); // R = walkable, G = occupied
+		Image image = Image.CreateEmpty(ChunkSize, ChunkSize, false, Image.Format.Rgf); // R = Blocked, G = occupied
 
 		for (int y = 0; y < ChunkSize; y++)
 		{
@@ -216,7 +216,7 @@ public partial class GridChunk : Node3D
 				TileData tile = GridChunkData.GetLocalTile(x, y);
 				if (tile == null) continue;
 
-				float r = tile.IsWalkable ? 1.0f : 0.0f;
+				float r = tile.IsBlocked ? 1.0f : 0.0f;
 				float g = tile.IsOccupied ? 1.0f : 0.0f;
 				image.SetPixel(x, y, new Color(r, g, 0f));
 			}

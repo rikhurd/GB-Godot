@@ -45,7 +45,7 @@ public partial class GridChunkData : Resource
                 newData.ChunkTileData.Add(new TileData
                 {
                     TileIndex = new Vector2I(x, y),
-                    IsWalkable = false,
+                    IsBlocked = false,
                     IsOccupied = false,
                     Height = 0
                 });

@@ -14,11 +14,11 @@ public partial class GridEditTool : EditorPlugin
 
     private enum EditMode
     {
-        ToggleWalkable,
+        ToggleBlocked,
         ToggleOccupied
     }
 
-    private EditMode CurrentEditMode = EditMode.ToggleWalkable;
+    private EditMode CurrentEditMode = EditMode.ToggleBlocked;
     public override void _EnterTree()
     {
         // Initialization of the plugin goes here.
@@ -70,8 +70,6 @@ public partial class GridEditTool : EditorPlugin
             //TileData clickedTile = GetChunkLocalTile(chunk, tileX, tileY);
             TileData clickedTile = SelectedGrid.GridChunkData.GetLocalTile(tileX, tileY);
 
-            GD.Print($"hitPos: {hitPos}, computed tileX={tileX}, tileY={tileY}");
-
             if (clickedTile == null)
             {
                 //This is caused by clicking on the very edge of the grid node
@@ -81,8 +79,8 @@ public partial class GridEditTool : EditorPlugin
 
             switch (CurrentEditMode)
             {
-                case EditMode.ToggleWalkable:
-                    clickedTile.IsWalkable = !clickedTile.IsWalkable;
+                case EditMode.ToggleBlocked:
+                    clickedTile.IsBlocked = !clickedTile.IsBlocked;
                     break;
                 case EditMode.ToggleOccupied:
                     clickedTile.IsOccupied = !clickedTile.IsOccupied;
@@ -93,7 +91,7 @@ public partial class GridEditTool : EditorPlugin
             SaveGridData();
             SelectedGrid.UpdateTileStateTexture();
 
-            GD.Print($"Edited Tile at [{tileX},{tileY}] IsWalkable={clickedTile.IsWalkable}, Occupied={clickedTile.IsOccupied}");
+            GD.Print($"Edited Tile at [{tileX},{tileY}] IsBlocked={clickedTile.IsBlocked}, Occupied={clickedTile.IsOccupied}");
 
             return (int)AfterGuiInput.Stop; // consume the click
         }
@@ -190,7 +188,7 @@ public partial class GridEditTool : EditorPlugin
 		switch (index)
 		{
 			case 0:
-                CurrentEditMode = EditMode.ToggleWalkable;
+                CurrentEditMode = EditMode.ToggleBlocked;
 				GD.Print($"Item0 selected — Name: {itemName}");
 				break;
 

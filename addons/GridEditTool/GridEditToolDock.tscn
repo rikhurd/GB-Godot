@@ -46,6 +46,7 @@ layout_mode = 2
 text = "None"
 
 [node name="GridEditContainer" type="BoxContainer" parent="." unique_id=1596057559]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 vertical = true
@@ -96,7 +97,7 @@ auto_height = true
 wraparound_items = false
 item_count = 4
 same_column_width = true
-item_0/text = "Toggle walkable"
+item_0/text = "Toggle blocked"
 item_1/text = "Spawn entity"
 item_2/text = "Spawn point player"
 item_3/text = "Spawn point enemy"

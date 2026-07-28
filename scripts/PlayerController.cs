@@ -42,7 +42,7 @@ public partial class PlayerController : Node3D
 				if(tile != null)
 				{
 					TileData ClickedTile = tile.Value.tileData;
-					ClickedTile.IsWalkable = !ClickedTile.IsWalkable;
+					ClickedTile.IsBlocked = !ClickedTile.IsBlocked;
                     tile.Value.chunk.GridChunkData.ModifyTile(ClickedTile);
                 }
 			}
@@ -66,7 +66,7 @@ public partial class PlayerController : Node3D
 
 		TileData clickedTile = chunk.GridChunkData.GetLocalTile(tileX,tileY);
 
-		GD.Print($"Clicked Tile at [{tileX},{tileY}] IsWalkable={clickedTile.IsWalkable}, Occupied={clickedTile.IsOccupied}");
+		GD.Print($"Clicked Tile at [{tileX},{tileY}] IsBlocked={clickedTile.IsBlocked}, Occupied={clickedTile.IsOccupied}");
 		return (clickedTile, chunk);
 	}
 	private (Vector3 hitPosition, GridChunk chunk)? RaycastChunk(Vector2 screenPos, float length)

@@ -50,13 +50,13 @@ vec3 get_tile_state_color(vec2 coord) {
     vec2 tile_uv = (coord + 0.5) / grid_size;
     vec4 state = texture(tile_state_texture, tile_uv);
 
-    // Encoding: R channel = walkable, G channel = occupied
-    bool walkable = state.r > 0.5;
+    // Encoding: R channel = blocked, G channel = occupied
+    bool blocked = state.r > 0.5;
     bool occupied = state.g > 0.5;
 
     if (occupied) return occupied_color.rgb;
-    if (walkable) return walkable_color.rgb;
-    return blocked_color.rgb;
+    if (blocked) return blocked_color.rgb;
+    return walkable_color.rgb;
 }
 
 void fragment() {
