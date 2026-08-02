@@ -27,7 +27,7 @@ uniform float fresnel_amount = 15.0;
 
 group_uniforms TileState;
 uniform sampler2D tile_state_texture : hint_default_white, filter_nearest;
-uniform bool show_tile_state = true;
+uniform bool show_tile_state = false;
 uniform vec4 walkable_color : source_color = vec4(0.15, 0.7, 0.2, 1.0);
 uniform vec4 blocked_color : source_color = vec4(0.7, 0.15, 0.15, 1.0);
 uniform vec4 occupied_color : source_color = vec4(0.9, 0.75, 0.1, 1.0);

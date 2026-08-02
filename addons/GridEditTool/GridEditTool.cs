@@ -15,7 +15,10 @@ public partial class GridEditTool : EditorPlugin
     private enum EditMode
     {
         ToggleBlocked,
-        ToggleOccupied
+        ToggleOccupied,
+        SetPlayerSpawn,
+        SetEnemySpawn,
+        ClearSpawn,
     }
 
     private EditMode CurrentEditMode = EditMode.ToggleBlocked;
@@ -84,6 +87,15 @@ public partial class GridEditTool : EditorPlugin
                     break;
                 case EditMode.ToggleOccupied:
                     clickedTile.IsOccupied = !clickedTile.IsOccupied;
+                    break;
+                case EditMode.SetPlayerSpawn:
+                    SelectedGrid.GridChunkData.SetPlayerSpawn(tileX, tileY);
+                    break;
+                case EditMode.SetEnemySpawn:
+                    SelectedGrid.GridChunkData.SetEnemySpawn(tileX, tileY);
+                    break;
+                case EditMode.ClearSpawn:
+                    SelectedGrid.GridChunkData.ClearSpawn(tileX, tileY);
                     break;
             }
 
@@ -193,14 +205,21 @@ public partial class GridEditTool : EditorPlugin
 				break;
 
 			case 1:
-				GD.Print($"Item1 selected — Name: {itemName}");
+				GD.Print($"NOT IMPLEMENTED YET - Item1 selected — Name: {itemName}");
 				break;
 
 			case 2:
+                CurrentEditMode = EditMode.SetPlayerSpawn;
 				GD.Print($"Item2 selected — Name: {itemName}");
                 break;
 
             case 3:
+                CurrentEditMode = EditMode.SetEnemySpawn;
+                GD.Print($"Item3 selected — Name: {itemName}");
+                break;
+                
+            case 4:
+                CurrentEditMode = EditMode.ClearSpawn;
                 GD.Print($"Item3 selected — Name: {itemName}");
                 break;
 
