@@ -1,0 +1,72 @@
+[gd_resource type="Resource" script_class="GridChunkData" format=3 uid="uid://bjackus7lkwjo"]
+
+[ext_resource type="Script" uid="uid://cyueleuitdtn8" path="res://scripts/TileData.cs" id="1_i6f4i"]
+[ext_resource type="Script" uid="uid://c7s0ri4uf53vf" path="res://scripts/GridChunkData.cs" id="2_vwuqj"]
+
+[sub_resource type="Resource" id="Resource_i6f4i"]
+script = ExtResource("1_i6f4i")
+
+[sub_resource type="Resource" id="Resource_vwuqj"]
+script = ExtResource("1_i6f4i")
+TileIndex = Vector2i(1, 0)
+
+[sub_resource type="Resource" id="Resource_13h00"]
+script = ExtResource("1_i6f4i")
+TileIndex = Vector2i(2, 0)
+
+[sub_resource type="Resource" id="Resource_l50h2"]
+script = ExtResource("1_i6f4i")
+TileIndex = Vector2i(3, 0)
+
+[sub_resource type="Resource" id="Resource_1ydyr"]
+script = ExtResource("1_i6f4i")
+TileIndex = Vector2i(0, 1)
+
+[sub_resource type="Resource" id="Resource_wcju0"]
+script = ExtResource("1_i6f4i")
+TileIndex = Vector2i(1, 1)
+
+[sub_resource type="Resource" id="Resource_rvbyr"]
+script = ExtResource("1_i6f4i")
+TileIndex = Vector2i(2, 1)
+
+[sub_resource type="Resource" id="Resource_5nu70"]
+script = ExtResource("1_i6f4i")
+TileIndex = Vector2i(3, 1)
+
+[sub_resource type="Resource" id="Resource_hadnk"]
+script = ExtResource("1_i6f4i")
+TileIndex = Vector2i(0, 2)
+
+[sub_resource type="Resource" id="Resource_271nm"]
+script = ExtResource("1_i6f4i")
+TileIndex = Vector2i(1, 2)
+
+[sub_resource type="Resource" id="Resource_43vrf"]
+script = ExtResource("1_i6f4i")
+TileIndex = Vector2i(2, 2)
+
+[sub_resource type="Resource" id="Resource_yhvje"]
+script = ExtResource("1_i6f4i")
+TileIndex = Vector2i(3, 2)
+
+[sub_resource type="Resource" id="Resource_towii"]
+script = ExtResource("1_i6f4i")
+TileIndex = Vector2i(0, 3)
+
+[sub_resource type="Resource" id="Resource_ok1qd"]
+script = ExtResource("1_i6f4i")
+TileIndex = Vector2i(1, 3)
+
+[sub_resource type="Resource" id="Resource_hlv07"]
+script = ExtResource("1_i6f4i")
+TileIndex = Vector2i(2, 3)
+
+[sub_resource type="Resource" id="Resource_j57si"]
+script = ExtResource("1_i6f4i")
+TileIndex = Vector2i(3, 3)
+
+[resource]
+script = ExtResource("2_vwuqj")
+ChunkTileData = Array[ExtResource("1_i6f4i")]([SubResource("Resource_i6f4i"), SubResource("Resource_vwuqj"), SubResource("Resource_13h00"), SubResource("Resource_l50h2"), SubResource("Resource_1ydyr"), SubResource("Resource_wcju0"), SubResource("Resource_rvbyr"), SubResource("Resource_5nu70"), SubResource("Resource_hadnk"), SubResource("Resource_271nm"), SubResource("Resource_43vrf"), SubResource("Resource_yhvje"), SubResource("Resource_towii"), SubResource("Resource_ok1qd"), SubResource("Resource_hlv07"), SubResource("Resource_j57si")])
+metadata/_custom_type_script = "uid://c7s0ri4uf53vf"

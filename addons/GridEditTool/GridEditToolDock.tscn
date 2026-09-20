@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bahu3k188pf78" path="res://addons/GridEditTool/GridEditToolUI.cs" id="1_pqnvg"]
 
-[node name="GridEditToolDock" type="VBoxContainer" unique_id=1026958256 node_paths=PackedStringArray("GridEditMethods", "SelectGridButton", "DeselectGridButton", "SelectedGridName", "GridDataLabel", "GridEditContainer", "GridDataContainer", "CreateGridData", "DeleteGridData", "SaveGridData", "ToggleTileStateOverlay")]
+[node name="GridEditToolDock" type="VBoxContainer" unique_id=1026958256 node_paths=PackedStringArray("GridEditMethods", "SelectGridButton", "DeselectGridButton", "SelectedGridName", "GridDataLabel", "GridEditContainer", "GridDataContainer", "CreateGridData", "DeleteGridData", "SaveGridData", "ToggleTileStateOverlay", "ChunkSizeXSpinBox", "ChunkSizeYSpinBox", "TileSizeSpinBox")]
 offset_right = 165.0
 offset_bottom = 412.0
 grow_horizontal = 2
@@ -14,13 +14,16 @@ GridEditMethods = NodePath("GridEditContainer/GridToolsContainer/EditMethods")
 SelectGridButton = NodePath("SelectGridButton")
 DeselectGridButton = NodePath("DeselectGridButton")
 SelectedGridName = NodePath("HBoxContainer/SelectedGridNameLabel")
-GridDataLabel = NodePath("GridEditContainer/GridDataContainer/GridDataLabel")
+GridDataLabel = NodePath("GridEditContainer/GridDataCreateContainer/GridDataLabel")
 GridEditContainer = NodePath("GridEditContainer")
-GridDataContainer = NodePath("GridEditContainer/GridDataContainer")
-CreateGridData = NodePath("GridEditContainer/GridDataContainer/CreateGridData")
-DeleteGridData = NodePath("GridEditContainer/GridDataContainer/DeleteGridData")
+GridDataContainer = NodePath("GridEditContainer/GridDataCreateContainer")
+CreateGridData = NodePath("GridEditContainer/GridDataCreateContainer/CreateGridData")
+DeleteGridData = NodePath("GridEditContainer/GridDataCreateContainer/DeleteGridData")
 SaveGridData = NodePath("GridEditContainer/SaveGridData")
 ToggleTileStateOverlay = NodePath("GridEditContainer/HBoxContainer2/ToggleTileStateOverlay")
+ChunkSizeXSpinBox = NodePath("GridEditContainer/GridDataContainer/GridSizeData/XChunkSize")
+ChunkSizeYSpinBox = NodePath("GridEditContainer/GridDataContainer/GridSizeData/YChunkSize")
+TileSizeSpinBox = NodePath("GridEditContainer/GridDataContainer/GridTileSizeData/TileSize")
 
 [node name="Label3" type="Label" parent="." unique_id=354720297]
 layout_mode = 2
@@ -51,20 +54,20 @@ layout_mode = 2
 size_flags_vertical = 3
 vertical = true
 
-[node name="GridDataContainer" type="BoxContainer" parent="GridEditContainer" unique_id=33481480]
+[node name="GridDataCreateContainer" type="BoxContainer" parent="GridEditContainer" unique_id=33481480]
 layout_mode = 2
 vertical = true
 
-[node name="GridDataLabel" type="Label" parent="GridEditContainer/GridDataContainer" unique_id=1039726080]
+[node name="GridDataLabel" type="Label" parent="GridEditContainer/GridDataCreateContainer" unique_id=1039726080]
 layout_mode = 2
 text = "None"
 
-[node name="CreateGridData" type="Button" parent="GridEditContainer/GridDataContainer" unique_id=926007326]
+[node name="CreateGridData" type="Button" parent="GridEditContainer/GridDataCreateContainer" unique_id=926007326]
 modulate = Color(0.5568628, 0.9372549, 0.5921569, 1)
 layout_mode = 2
 text = "Create Grid Data"
 
-[node name="DeleteGridData" type="Button" parent="GridEditContainer/GridDataContainer" unique_id=1532547631]
+[node name="DeleteGridData" type="Button" parent="GridEditContainer/GridDataCreateContainer" unique_id=1532547631]
 modulate = Color(0.98039216, 0.4627451, 0.41568628, 1)
 layout_mode = 2
 text = "Delete Grid Data"
@@ -75,12 +78,39 @@ layout_mode = 2
 [node name="ToggleTileStateOverlay" type="CheckButton" parent="GridEditContainer/HBoxContainer2" unique_id=1152342941]
 layout_mode = 2
 action_mode = 0
-text = "Toggle  Overlay"
+text = "Toggle Overlay"
 
 [node name="SaveGridData" type="Button" parent="GridEditContainer" unique_id=1330000645]
 modulate = Color(0.5568628, 0.9372549, 0.5921569, 1)
 layout_mode = 2
 text = "Save Grid Data"
+
+[node name="GridDataContainer" type="BoxContainer" parent="GridEditContainer" unique_id=616870357]
+layout_mode = 2
+vertical = true
+
+[node name="Label3" type="Label" parent="GridEditContainer/GridDataContainer" unique_id=974986870]
+layout_mode = 2
+text = "Grid chunk size"
+
+[node name="GridSizeData" type="HBoxContainer" parent="GridEditContainer/GridDataContainer" unique_id=658991889]
+layout_mode = 2
+
+[node name="XChunkSize" type="SpinBox" parent="GridEditContainer/GridDataContainer/GridSizeData" unique_id=120018185]
+layout_mode = 2
+
+[node name="YChunkSize" type="SpinBox" parent="GridEditContainer/GridDataContainer/GridSizeData" unique_id=1150079368]
+layout_mode = 2
+
+[node name="GridTileSizeData" type="VBoxContainer" parent="GridEditContainer/GridDataContainer" unique_id=1972977145]
+layout_mode = 2
+
+[node name="GridTileData" type="Label" parent="GridEditContainer/GridDataContainer/GridTileSizeData" unique_id=2022636441]
+layout_mode = 2
+text = "Grid tile size"
+
+[node name="TileSize" type="SpinBox" parent="GridEditContainer/GridDataContainer/GridTileSizeData" unique_id=875761365]
+layout_mode = 2
 
 [node name="GridToolsContainer" type="BoxContainer" parent="GridEditContainer" unique_id=285209434]
 layout_mode = 2

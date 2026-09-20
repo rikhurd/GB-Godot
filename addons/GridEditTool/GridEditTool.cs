@@ -10,7 +10,8 @@ public partial class GridEditTool : EditorPlugin
     private GridEditToolUI DockContent;
     private GridChunk SelectedGrid;
     private bool RegisterEditMethods = false;
-    private bool GridDataConnected = false;
+    private ArrayMesh ChunkArrayMesh = new ArrayMesh();
+    private ImageTexture DebugTileStateTexture;
 
     private enum EditMode
     {
@@ -20,6 +21,16 @@ public partial class GridEditTool : EditorPlugin
         SetEnemySpawn,
         ClearSpawn,
     }
+
+    private int _chunkSize = 32;
+	private int _chunkHeight = 1;
+	private int _tileSize = 4;
+
+    [Export] public int ChunkSize;
+
+	[Export] public int ChunkHeight;
+
+	[Export] public int TileSize;
 
     private EditMode CurrentEditMode = EditMode.ToggleBlocked;
     public override void _EnterTree()
@@ -41,11 +52,28 @@ public partial class GridEditTool : EditorPlugin
         DockContent.CreateGridData.ButtonDown += CreateGridDataForSelected;
         DockContent.ToggleTileStateOverlay.Toggled += OnToggleTileStateOverlay;
         DockContent.SaveGridData.ButtonDown += SaveGridData;
+        DockContent.ChunkSizeXSpinBox.ValueChanged += OnGridSettingsChanged;
+        DockContent.TileSizeSpinBox.ValueChanged += OnGridSettingsChanged;
+    }
+    private void OnGridSettingsChanged(double value)
+    {
+        ChunkSize = (int)DockContent.ChunkSizeXSpinBox.Value;
+        TileSize = (int)DockContent.TileSizeSpinBox.Value;
+
+        RefreshChunk();
+    }
+    private void RefreshChunk()
+    {
+        ScheduleMeshBuild();
+        UpdateChunkCollision();
+        UpdateChunkShader();
+        UpdateTileStateTexture();
     }
 
     public override void _ExitTree()
     {
         // Clean-up of the plugin goes here.
+        DeselectGrid();
         RemoveDock(_dock);
         _dock.Free();
     }
@@ -67,8 +95,8 @@ public partial class GridEditTool : EditorPlugin
 
             Vector3 hitPos = hitPosAndChunk.Value.hitPosition;
 
-            int tileX = Mathf.FloorToInt(hitPos.X / SelectedGrid.TileSize);
-            int tileY = Mathf.FloorToInt(hitPos.Z / SelectedGrid.TileSize);
+            int tileX = Mathf.FloorToInt(hitPos.X / TileSize);
+            int tileY = Mathf.FloorToInt(hitPos.Z / TileSize);
 
             //TileData clickedTile = GetChunkLocalTile(chunk, tileX, tileY);
             TileData clickedTile = SelectedGrid.GridChunkData.GetLocalTile(tileX, tileY);
@@ -101,7 +129,7 @@ public partial class GridEditTool : EditorPlugin
 
             SelectedGrid.GridChunkData.SetLocalTile(tileX, tileY, clickedTile);
             SaveGridData();
-            SelectedGrid.UpdateTileStateTexture();
+            UpdateTileStateTexture();
 
             GD.Print($"Edited Tile at [{tileX},{tileY}] IsBlocked={clickedTile.IsBlocked}, Occupied={clickedTile.IsOccupied}");
 
@@ -145,16 +173,18 @@ public partial class GridEditTool : EditorPlugin
     }
     private void DeselectGrid()
     {
-        if (GridDataConnected)
-        {
-            GridDataConnected = false;
-            SelectedGrid = null;
-            RegisterEditMethods = false;
-            DockContent.SelectedGridName.Text = "None";
-            DockContent.HideDisplayEditContainer();
+        if (SelectedGrid == null) return;
 
-            GD.Print($"GridChunk node deselected");
+        if (SelectedGrid?.ChunkMeshInstance != null)
+        {
+            SelectedGrid.ChunkMeshInstance.MaterialOverride = null;
         }
+        SelectedGrid = null;
+        RegisterEditMethods = false;
+        DockContent.SelectedGridName.Text = "None";
+        DockContent.HideDisplayEditContainer();
+
+        GD.Print($"GridChunk node deselected");
     }
     private void OnNodeSelected(NodePath nodePath)
     {
@@ -188,7 +218,7 @@ public partial class GridEditTool : EditorPlugin
                 {
                     DockContent.GridDataLabel.Visible = false;
                 }
-                SelectedGrid.UpdateTileStateTexture();
+                UpdateTileStateTexture();
             }
         }
     }
@@ -241,18 +271,18 @@ public partial class GridEditTool : EditorPlugin
 
         // if (SelectedGrid.GridChunkData.ChunkTileData == null || SelectedGrid.GridChunkData.ChunkTileData.Count == 0)
         
-            GridChunkData filled = GridChunkData.InitializeChunkTileData(SelectedGrid.GridChunkData.ChunkSize);
-            SelectedGrid.GridChunkData.ChunkTileData = filled.ChunkTileData;
+        GridChunkData filled = GridChunkData.InitializeChunkTileData(ChunkSize, TileSize);
+        SelectedGrid.GridChunkData.ChunkTileData = filled.ChunkTileData;
 
-            Error err = ResourceSaver.Save(SelectedGrid.GridChunkData);
-            if (err != Error.Ok)
-            {
-                GD.PrintErr($"Failed to save grid data: {err}");
-                return;
-            }
+        Error err = ResourceSaver.Save(SelectedGrid.GridChunkData);
+        if (err != Error.Ok)
+        {
+            GD.PrintErr($"Failed to save grid data: {err}");
+            return;
+        }
 
-            GD.Print($"Populated and saved tile data to {SelectedGrid.GridChunkData.ResourcePath}");
-        
+        GD.Print($"Populated and saved tile data to {SelectedGrid.GridChunkData.ResourcePath}");
+    
         EditorInterface.Singleton.MarkSceneAsUnsaved();
     }
 
@@ -265,11 +295,161 @@ public partial class GridEditTool : EditorPlugin
         {
             GD.PrintErr($"Failed to save grid data: {err}");
         }
-        SelectedGrid.UpdateTileStateTexture();
+        UpdateTileStateTexture();
     }
     private void OnToggleTileStateOverlay(bool enabled)
     {
-        SelectedGrid?.ChunkMaterial?.SetShaderParameter("show_tile_state", enabled);
+        UpdateTileStateTexture();
+        if (SelectedGrid == null) return;
+
+        MeshInstance3D mesh = SelectedGrid.ChunkMeshInstance;
+
+        if (enabled)
+        {
+            mesh.MaterialOverride = SelectedGrid.DebugOverlayMaterial;
+        }
+        else
+        {
+            mesh.MaterialOverride = null; // falls back to the mesh's normal ChunkMaterial
+        }
     }
+
+    private void ScheduleMeshBuild()
+	{
+		CallDeferred(nameof(BuildMesh));
+	}
+    public void UpdateTileStateTexture()
+	{
+		if (SelectedGrid?.GridChunkData == null || SelectedGrid?.GridChunkData.ChunkTileData == null ||
+            SelectedGrid?.GridChunkData.ChunkTileData.Count == 0 || SelectedGrid?.DebugOverlayMaterial == null)
+			return;
+
+		Image image = Image.CreateEmpty(ChunkSize, ChunkSize, false, Image.Format.Rgf); // R = Blocked, G = occupied
+
+		for (int y = 0; y < ChunkSize; y++)
+		{
+			for (int x = 0; x < ChunkSize; x++)
+			{
+				TileData tile = SelectedGrid.GridChunkData.GetLocalTile(x, y);
+				if (tile == null) continue;
+
+				float r = tile.IsBlocked ? 1.0f : 0.0f;
+				float g = tile.IsOccupied ? 1.0f : 0.0f;
+				image.SetPixel(x, y, new Color(r, g, 0f));
+			}
+		}
+
+		if (DebugTileStateTexture == null)
+			DebugTileStateTexture = ImageTexture.CreateFromImage(image);
+		else
+			DebugTileStateTexture.Update(image);
+
+		SelectedGrid.DebugOverlayMaterial.SetShaderParameter("tile_state_texture", DebugTileStateTexture);
+	}
+
+    private void UpdateChunkShader()
+	{
+		if (SelectedGrid.ChunkMaterial == null)
+		{
+			return;
+		}
+
+		// The shader expects a Vector2 for grid divisions
+		int GridDivisions = ChunkSize;
+
+		// The shader expects a float for cell size
+		// float CellSize = TileSize;
+
+		SelectedGrid.ChunkMaterial.SetShaderParameter("grid_size", ChunkSize);
+
+		#if TOOLS
+		SelectedGrid.DebugOverlayMaterial.SetShaderParameter("grid_size", ChunkSize);
+		#endif
+	
+	}
+	private void UpdateChunkCollision()
+	{
+		if (SelectedGrid.ChunkCollision == null) return;
+
+		if (SelectedGrid.ChunkCollision.Shape == null || SelectedGrid.ChunkCollision.Shape is not BoxShape3D)
+		{
+			SelectedGrid.ChunkCollisionShape = new BoxShape3D();
+			SelectedGrid.ChunkCollision.Shape = SelectedGrid.ChunkCollisionShape;
+		}
+		else
+		{
+			SelectedGrid.ChunkCollisionShape = (BoxShape3D)SelectedGrid.ChunkCollision.Shape;
+		}
+
+		SelectedGrid.ChunkCollisionShape.Size = new Vector3(ChunkSize * TileSize, ChunkHeight, ChunkSize * TileSize);
+
+		SelectedGrid.ChunkCollision.Position = new Vector3(
+			(ChunkSize * TileSize) * 0.5f,
+			ChunkHeight * 0.5f - 0.5f,
+			(ChunkSize * TileSize) * 0.5f
+		);
+	}
+
+    private void BuildMesh()
+	{
+		// --- Vertices & UVs ---
+		Vector3[] vertices = new Vector3[(ChunkSize + 1) * (ChunkSize + 1)];
+		Vector2[] uvs = new Vector2[vertices.Length];
+		Vector3[] normals = new Vector3[vertices.Length];
+
+		for (int y = 0; y <= ChunkSize; y++)
+		{
+			for (int x = 0; x <= ChunkSize; x++)
+			{
+				int i = y * (ChunkSize + 1) + x;
+
+				float vx = x * TileSize;
+				float vz = y * TileSize;
+
+				vertices[i] = new Vector3(vx, 0, vz);
+				uvs[i] = new Vector2((float)x / ChunkSize, (float)y / ChunkSize);
+				normals[i] = Vector3.Up; // flat plane facing up
+			}
+		}
+
+		// --- Indices (two triangles per quad) ---
+		int[] indices = new int[ChunkSize * ChunkSize * 6];
+		int index = 0;
+
+		for (int y = 0; y < ChunkSize; y++)
+		{
+			for (int x = 0; x < ChunkSize; x++)
+			{
+				int i0 = y * (ChunkSize + 1) + x;
+				int i1 = i0 + 1;
+				int i2 = i0 + (ChunkSize + 1);
+				int i3 = i2 + 1;
+
+				// triangle 1
+				indices[index++] = i0;
+				indices[index++] = i1;
+				indices[index++] = i3;
+
+				// triangle 2
+				indices[index++] = i0;
+				indices[index++] = i3;
+				indices[index++] = i2;
+			}
+		}
+
+		// --- ArrayMesh setup ---
+		var arrays = new Godot.Collections.Array();
+		arrays.Resize((int)Mesh.ArrayType.Max);
+
+		arrays[(int)Mesh.ArrayType.Vertex] = vertices;
+		arrays[(int)Mesh.ArrayType.Normal] = normals;
+		arrays[(int)Mesh.ArrayType.TexUV] = uvs;
+		arrays[(int)Mesh.ArrayType.Index] = indices;
+
+		ChunkArrayMesh.ClearSurfaces();
+		ChunkArrayMesh.AddSurfaceFromArrays(Mesh.PrimitiveType.Triangles, arrays);
+
+		SelectedGrid.ChunkMeshInstance.Mesh = ChunkArrayMesh;
+	}
 }
 #endif

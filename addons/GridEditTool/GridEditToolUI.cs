@@ -15,6 +15,9 @@ public partial class GridEditToolUI : Control
 	[Export] public Button DeleteGridData;
 	[Export] public Button SaveGridData;
 	[Export] public CheckButton ToggleTileStateOverlay;
+	[Export] public SpinBox ChunkSizeXSpinBox;
+	[Export] public SpinBox ChunkSizeYSpinBox;
+	[Export] public SpinBox TileSizeSpinBox;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()

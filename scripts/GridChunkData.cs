@@ -5,16 +5,18 @@ using Godot;
 public partial class GridChunkData : Resource
 {
     [Export] public int ChunkSize;
+    public int TileSize;
 
     [Export] public Godot.Collections.Array<TileData> ChunkTileData = new();
     [Export] public Godot.Collections.Array<Vector2I> PlayerSpawnPoints = new();
     [Export] public Godot.Collections.Array<Vector2I> EnemySpawnPoints = new();
 
-    public static GridChunkData InitializeChunkTileData(int newChunkSize)
+    public static GridChunkData InitializeChunkTileData(int newChunkSize, int newTileSize)
     {
         GridChunkData newData = new GridChunkData
         {
             ChunkSize = newChunkSize,
+            TileSize = newTileSize,
             ChunkTileData = new Godot.Collections.Array<TileData>()
         };
 

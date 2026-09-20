@@ -61,8 +61,8 @@ public partial class PlayerController : Node3D
 		Vector3 hitPos = hitPosAndChunk.Value.hitPosition;
 		GridChunk chunk = hitPosAndChunk.Value.chunk;
 
-		int tileX = Mathf.FloorToInt(hitPos.X / chunk.TileSize);
-		int tileY = Mathf.FloorToInt(hitPos.Z / chunk.TileSize);
+		int tileX = Mathf.FloorToInt(hitPos.X / chunk.GridChunkData.TileSize);
+		int tileY = Mathf.FloorToInt(hitPos.Z / chunk.GridChunkData.TileSize);
 
 		TileData clickedTile = chunk.GridChunkData.GetLocalTile(tileX,tileY);
 
