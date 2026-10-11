@@ -11,20 +11,18 @@ public partial class GridChunkData : Resource
     [Export] public Godot.Collections.Array<Vector2I> PlayerSpawnPoints = new();
     [Export] public Godot.Collections.Array<Vector2I> EnemySpawnPoints = new();
 
-    public static GridChunkData InitializeChunkTileData(int newChunkSize, int newTileSize)
+    public GridChunkData InitializeChunkTileData(int newChunkSize, int newTileSize)
     {
-        GridChunkData newData = new GridChunkData
-        {
-            ChunkSize = newChunkSize,
-            TileSize = newTileSize,
-            ChunkTileData = new Godot.Collections.Array<TileData>()
-        };
+
+        ChunkSize = newChunkSize;
+        TileSize = newTileSize;
+        ChunkTileData.Clear();
 
         for (int y = 0; y < newChunkSize; y++)
         {
             for (int x = 0; x < newChunkSize; x++)
             {
-                newData.ChunkTileData.Add(new TileData
+                ChunkTileData.Add(new TileData
                 {
                     TileIndex = new Vector2I(x, y),
                     IsBlocked = false,
@@ -35,7 +33,7 @@ public partial class GridChunkData : Resource
         }
 
         GD.Print($"Initialized {newChunkSize * newChunkSize} tiles for chunk.");
-        return newData;
+        return this;
     }
     public TileData GetLocalTile(int x, int y)
     {

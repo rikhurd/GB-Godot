@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bahu3k188pf78" path="res://addons/GridEditTool/GridEditToolUI.cs" id="1_pqnvg"]
 
-[node name="GridEditToolDock" type="VBoxContainer" unique_id=1026958256 node_paths=PackedStringArray("GridEditMethods", "SelectGridButton", "DeselectGridButton", "SelectedGridName", "GridDataLabel", "GridEditContainer", "GridDataContainer", "CreateGridData", "DeleteGridData", "SaveGridData", "ToggleTileStateOverlay", "ChunkSizeXSpinBox", "ChunkSizeYSpinBox", "TileSizeSpinBox")]
+[node name="GridEditToolDock" type="VBoxContainer" unique_id=1026958256 node_paths=PackedStringArray("GridEditMethods", "SelectGridButton", "DeselectGridButton", "SelectedGridName", "GridDataLabel", "GridEditContainer", "GridDataContainer", "CreateGridData", "DeleteGridData", "SaveTileData", "ToggleTileStateOverlay", "ChunkSizeXSpinBox", "ChunkSizeYSpinBox", "TileSizeSpinBox")]
 offset_right = 165.0
 offset_bottom = 412.0
 grow_horizontal = 2
@@ -19,7 +19,7 @@ GridEditContainer = NodePath("GridEditContainer")
 GridDataContainer = NodePath("GridEditContainer/GridDataCreateContainer")
 CreateGridData = NodePath("GridEditContainer/GridDataCreateContainer/CreateGridData")
 DeleteGridData = NodePath("GridEditContainer/GridDataCreateContainer/DeleteGridData")
-SaveGridData = NodePath("GridEditContainer/SaveGridData")
+SaveTileData = NodePath("GridEditContainer/SaveTileData")
 ToggleTileStateOverlay = NodePath("GridEditContainer/HBoxContainer2/ToggleTileStateOverlay")
 ChunkSizeXSpinBox = NodePath("GridEditContainer/GridDataContainer/GridSizeData/XChunkSize")
 ChunkSizeYSpinBox = NodePath("GridEditContainer/GridDataContainer/GridSizeData/YChunkSize")
@@ -80,10 +80,10 @@ layout_mode = 2
 action_mode = 0
 text = "Toggle Overlay"
 
-[node name="SaveGridData" type="Button" parent="GridEditContainer" unique_id=1330000645]
+[node name="SaveTileData" type="Button" parent="GridEditContainer" unique_id=1330000645]
 modulate = Color(0.5568628, 0.9372549, 0.5921569, 1)
 layout_mode = 2
-text = "Save Grid Data"
+text = "Save Tile Data"
 
 [node name="GridDataContainer" type="BoxContainer" parent="GridEditContainer" unique_id=616870357]
 layout_mode = 2

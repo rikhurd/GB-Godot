@@ -13,7 +13,7 @@ public partial class GridEditToolUI : Control
 	[Export] public BoxContainer GridDataContainer;
 	[Export] public Button CreateGridData;
 	[Export] public Button DeleteGridData;
-	[Export] public Button SaveGridData;
+	[Export] public Button SaveTileData;
 	[Export] public CheckButton ToggleTileStateOverlay;
 	[Export] public SpinBox ChunkSizeXSpinBox;
 	[Export] public SpinBox ChunkSizeYSpinBox;

@@ -51,7 +51,7 @@ public partial class GridEditTool : EditorPlugin
         DockContent.GridEditMethods.ItemSelected += OnItemSelected;
         DockContent.CreateGridData.ButtonDown += CreateGridDataForSelected;
         DockContent.ToggleTileStateOverlay.Toggled += OnToggleTileStateOverlay;
-        DockContent.SaveGridData.ButtonDown += SaveGridData;
+        DockContent.SaveTileData.ButtonDown += SaveTileData;
         DockContent.ChunkSizeXSpinBox.ValueChanged += OnGridSettingsChanged;
         DockContent.TileSizeSpinBox.ValueChanged += OnGridSettingsChanged;
     }
@@ -128,7 +128,7 @@ public partial class GridEditTool : EditorPlugin
             }
 
             SelectedGrid.GridChunkData.SetLocalTile(tileX, tileY, clickedTile);
-            SaveGridData();
+            SaveTileData();
             UpdateTileStateTexture();
 
             GD.Print($"Edited Tile at [{tileX},{tileY}] IsBlocked={clickedTile.IsBlocked}, Occupied={clickedTile.IsOccupied}");
@@ -268,10 +268,11 @@ public partial class GridEditTool : EditorPlugin
         }
 
         SelectedGrid.SyncDataChunkSize();
+        SelectedGrid.GridChunkData.ChunkSize = ChunkSize;
 
         // if (SelectedGrid.GridChunkData.ChunkTileData == null || SelectedGrid.GridChunkData.ChunkTileData.Count == 0)
         
-        GridChunkData filled = GridChunkData.InitializeChunkTileData(ChunkSize, TileSize);
+        GridChunkData filled = new GridChunkData().InitializeChunkTileData(ChunkSize, TileSize);
         SelectedGrid.GridChunkData.ChunkTileData = filled.ChunkTileData;
 
         Error err = ResourceSaver.Save(SelectedGrid.GridChunkData);
@@ -286,7 +287,7 @@ public partial class GridEditTool : EditorPlugin
         EditorInterface.Singleton.MarkSceneAsUnsaved();
     }
 
-    private void SaveGridData()
+    private void SaveTileData()
     {
         if (SelectedGrid?.GridChunkData == null) return;
 
@@ -339,11 +340,14 @@ public partial class GridEditTool : EditorPlugin
 			}
 		}
 
-		if (DebugTileStateTexture == null)
+		if (DebugTileStateTexture == null  ||
+            DebugTileStateTexture.GetWidth() != ChunkSize ||
+            DebugTileStateTexture.GetHeight() != ChunkSize)
+
 			DebugTileStateTexture = ImageTexture.CreateFromImage(image);
 		else
 			DebugTileStateTexture.Update(image);
-
+            
 		SelectedGrid.DebugOverlayMaterial.SetShaderParameter("tile_state_texture", DebugTileStateTexture);
 	}
 

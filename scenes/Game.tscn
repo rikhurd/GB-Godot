@@ -36,6 +36,6 @@ shadow_enabled = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
 
 [node name="Chunk" parent="." unique_id=988421160 instance=ExtResource("4_78awf")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.24528885, 0.59058523, -0.41118765)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.17313528, 0.66993475, -0.68734694)
 DebugOverlayMaterial = ExtResource("5_aug50")
 GridChunkData = ExtResource("6_aug50")
